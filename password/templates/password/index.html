@@ -1,0 +1,19 @@
+{% if user.is_authenticated %}
+{% if data %}
+    <ul>
+    {% for obj in data %}
+    <p><li> Website: {{obj.web}} </li>
+    <li> UserID: {{obj.userid}} </li>
+    <li> Password: {{obj.pw}} </li></p>
+    {% endfor %}
+    </ul>
+    <a href='add_pw/'>Add passwords</a>
+{% else %}
+    <p>No passwords are available.</p>
+    <a href='add_pw/'>Add passwords</a>
+{% endif %}
+<p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
