@@ -12,8 +12,8 @@
     <p>No passwords are available.</p>
     <a href='add_pw/'>Add passwords</a>
 {% endif %}
-<p><a href="{% url 'logout' %}">logout</a></p>
+<p><a href="{% url 'logout' %}">Logout</a></p>
 {% else %}
   <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
+  <a href="{% url 'login' %}">Login</a>
 {% endif %}
