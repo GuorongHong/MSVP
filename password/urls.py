@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('add_pw/', views.add_pw, name='add_pw')
+    path('add_pw/', views.add_pw, name='add_pw'),
+    path('<int:id>/delete/', views.del_pw, name="del_pw"),
+
 ]

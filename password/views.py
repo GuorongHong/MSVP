@@ -31,5 +31,15 @@ def add_pw(request):
         form = PasswordForm()
     return render(request, 'password/add_pw.html', {'form': form})
     
-
+def del_pw(request, id):
+    obj = Passwords.objects.get(id = id)
+    if request.method == 'POST':
+        if obj.user.id == request.user.id:
+            obj.delete()
+            return redirect('../../')
+        return HttpResponse('No Permission')
+    context = {
+        'object': obj
+    }
+    return render(request, "password/del_pw.html", context)
 
