@@ -1,0 +1,1 @@
+web: gunicorn msvp.wsgi --log-file -
