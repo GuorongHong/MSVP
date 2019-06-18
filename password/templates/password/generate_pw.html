@@ -1,0 +1,14 @@
+<form method="post">
+    {% csrf_token %}
+    <div id=password>
+    <h2>Generate a password here!</h2>
+    <output name="password" size="{{ length }}">{{ password }}</output>
+    </div>
+    <ul>
+        {{ form.as_ul }}
+    </ul>
+    <p><input type="submit" value="Generate password"></p>
+</form>
+
+<p><a href='../add_pw/'>Add password</a></p>
+<p><a href='../'>Back to passwords</a></p>
