@@ -14,10 +14,9 @@ def index(request):
         return redirect('verify_pw')
     template = loader.get_template('password/index.html')
     if request.user.is_authenticated:
-        encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
         data = Passwords.objects.filter(user = request.user)
         for obj in data:
-            print(obj.pw)
+            encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
             obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
         context = {
         'data': data,
