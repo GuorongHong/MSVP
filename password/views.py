@@ -86,8 +86,7 @@ def verify_pw(request):
             _, _, salt, _ = request.user.password.split('$')
             key = pbkdf2(request.POST.get("Password"), salt, 50000, 48)
             request.session['iv'] = key[0:16].hex()
-            request.session['cipherKey'] = key[16:32].hex()
-            request.session['macKey'] = key[32:].hex()
+            request.session['cipherKey'] = key[16:].hex()
             return redirect('/password/')
         else:
             return HttpResponse('Incorrect Password')
