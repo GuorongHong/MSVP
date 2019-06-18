@@ -1,10 +1,10 @@
 from django import forms 
 
 class PasswordForm(forms.Form):
+    web = forms.CharField(label='Website', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Website title"}))
     userid = forms.CharField(label='UserID', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your UserID"}))
     pw = forms.CharField(label='Password', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your Password"}))
-    web = forms.CharField(label='Website', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Website title"}))
-
+    
 class GeneratePasswordForm(forms.Form):
     length = forms.IntegerField(label='Length', min_value = 4, max_value = 128)
     use_upper = forms.BooleanField(label="Uppercase", initial = True, required = False)

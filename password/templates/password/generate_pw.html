@@ -2,7 +2,7 @@
     {% csrf_token %}
     <div id=password>
     <h2>Generate a password here!</h2>
-    <output name="password" size="{{ length }}">{{ password }}</output>
+    <output name="password" size="{{ length }}" contenteditable="true">{{ password }}</output>
     </div>
     <ul>
         {{ form.as_ul }}

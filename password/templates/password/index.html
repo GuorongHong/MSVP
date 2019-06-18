@@ -2,10 +2,13 @@
 {% if data %}
     <ul>
     {% for obj in data %}
-    <p><li> Website: {{obj.web}} </li>
-    <li> UserID: {{obj.userid}} </li>
-    <li> Password: {{obj.pw}} </li></p>
-    <li><a href='{{obj.id}}/delete/'>Delete</a></li>
+    <fieldset style="width:300px">
+      <legend>Password Information</legend>
+      <p><li> Website: {{obj.web}} </li>
+      <li> UserID: {{obj.userid}} </li>
+      <li> Password: {{obj.pw}} </li></p>
+      <li><a href='{{obj.id}}/delete/'>Delete</a></li>
+    </fieldset>
     {% endfor %}
     </ul>
     <a href='add_pw/'>Add passwords</a>
