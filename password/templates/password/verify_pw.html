@@ -1,6 +1,11 @@
-<form method="POST">
+<form action="/verify_pw/" method="POST">
     {% csrf_token %}
-    <input type="text" name="Password">
-    
+    <label for="verify_pw">Enter password again: </label>
+    <input type="password" 
+        name="Password" 
+        placeholder="Your password"
+         autocomplete="off" 
+         required
+         autofocus>
     <button type="submit">Submit</button>
     </form>
