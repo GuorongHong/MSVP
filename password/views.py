@@ -41,7 +41,7 @@ def edit(request, id):
 
 
 def add_pw(request):
-    password = 'Generated password here'
+    password = 'Your generated password will apppear here'
     length = 8
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
