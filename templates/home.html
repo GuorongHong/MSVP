@@ -4,14 +4,46 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hello {{ user.username }}! Manage your passwords here.
-  <p><a href='{% url "add_pw" %}'>Add password</a></p>
-  <p><a href='{% url "index" %}'>View passwords</a></p>
-  <p><a href="{% url 'logout' %}">Logout</a></p>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+  <div class="wrapper">
+    <div id="formContent">
+      <p>Hello <b>{{ user.username }}</b>! Manage your passwords here.</p>
+      <p><a href='{% url "add_pw" %}'>Add password</a></p>
+      <p><a href='{% url "index" %}'>View passwords</a></p>
+      <p><a href="{% url 'logout' %}">Logout</a></p>
+    </div>
+  </div>
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </body>
 {% else %}
-  <p>You are not logged in.</p>
-  <a href="{% url 'login' %}">Login</a>
-  <p>Haven't registered for an account?</p>
-  <a href="{% url 'signup' %}">Sign Up</a>
+  <head>
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div id="formContent">
+        <p>You are not logged in.</p>
+        <a class="underlineHover" href="{% url 'login' %}">Login</a>
+        <p></p>
+        <p>Haven't registered for an account?</p>
+        <a class="underlineHover" href="{% url 'signup' %}">Sign Up</a>
+      </div>
+    </div>
+  
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </body>
 {% endif %}
 {% endblock %}
