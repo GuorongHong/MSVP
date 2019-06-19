@@ -13,10 +13,10 @@
     </p>
     {% else %}
     <p>
-        <label>Password: </label><output contenteditable="true" type="text">{{ password }}</output>
+        <label>Password: </label><input type="text" value="{{password}}" />
     </p>
     {% endif %}
-    
+
     <input type="submit" name="AddSubmit" value="Submit">
 </form>
 
