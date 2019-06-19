@@ -1,9 +1,15 @@
 {% if user.is_authenticated %}
+
+<form method="GET" action="{% url 'search' %}">
+    <input type=Text name="q" value="{{request.GET.q}}" placeholder="Search" />
+    <button type="submit">Search</button>
+</form>
+
 {% if data %}
     <ul>
     {% for obj in data %}
     <fieldset style="width:300px">
-      <legend>Password Information</legend>
+      <legend>({{ obj.id }}) Password Information</legend>
       <p><li> Website: {{obj.web}} </li>
       <li> UserID: {{obj.userid}} </li>
       <li> Password: {{obj.pw}} </li></p>

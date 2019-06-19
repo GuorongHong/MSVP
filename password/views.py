@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Passwords
 from .forms import PasswordForm, GeneratePasswordForm
+from django.db.models import Q
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string, pbkdf2, salted_hmac
@@ -40,7 +41,7 @@ def edit(request, id):
 
 
 def add_pw(request):
-    password = 'Your password here'
+    password = 'Generated password here'
     length = 8
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
@@ -132,3 +133,14 @@ def verify_pw(request):
         else:
             return HttpResponse('Incorrect Password')
     return render(request, "password/verify_pw.html", {})
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        results = Passwords.objects.filter(Q(web__icontains=query) | Q(userid__icontains=query))
+        for obj in results:
+            encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
+            obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
+        return render(request, 'password/search.html', {'results':results})
+    else:
+        return render(request, 'password/search.html', {})

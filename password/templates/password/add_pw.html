@@ -6,16 +6,9 @@
     <p>
         <label>UserID: </label>{{ add_form.userid }}
     </p>
-
-    {% if password == "Your password here" %}
     <p>
         <label>Password: </label>{{ add_form.pw }}
     </p>
-    {% else %}
-    <p>
-        <label>Password: </label><input type="text" value="{{password}}" />
-    </p>
-    {% endif %}
 
     <input type="submit" name="AddSubmit" value="Submit">
 </form>
@@ -24,6 +17,7 @@
     {% csrf_token %}
     <div id=password>
     <h3>Generate a password here!</h3>
+    <p>You may edit generated password here and paste it into the password field.</p>
     <output name="password" size="{{ length }}" contenteditable="true">{{ password }}</output>
     </div>
     <ul>
