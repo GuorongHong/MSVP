@@ -1,7 +1,35 @@
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
+    <p>
+        <label>Website: </label>{{ add_form.web }}
+    </p>
+    <p>
+        <label>UserID: </label>{{ add_form.userid }}
+    </p>
+
+    {% if password == "Your password here" %}
+    <p>
+        <label>Password: </label>{{ add_form.pw }}
+    </p>
+    {% else %}
+    <p>
+        <label>Password: </label><output contenteditable="true" type="text">{{ password }}</output>
+    </p>
+    {% endif %}
+    
+    <input type="submit" name="AddSubmit" value="Submit">
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    <div id=password>
+    <h3>Generate a password here!</h3>
+    <output name="password" size="{{ length }}" contenteditable="true">{{ password }}</output>
+    </div>
+    <ul>
+        {{ generate_form.as_ul }}
+    </ul>
+    <p><input type="submit" name="GenerateSubmit" value="Generate password"></p>
 </form>
 
 <p><a href='../generate_pw/'>Generate passwords here</a></p>

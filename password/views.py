@@ -26,22 +26,50 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def add_pw(request):
+    password = 'Your password here'
+    length = 8
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
-    if request.method == 'POST':
-        form = PasswordForm(request.POST)
-        if form.is_valid():
+    if request.method == 'POST' and 'GenerateSubmit' in request.POST:
+        addform = PasswordForm(request.POST, prefix='add')
+        generateform = GeneratePasswordForm(request.POST or None, prefix='generate')
+        if generateform.is_valid():
+            data = generateform.cleaned_data
+            charset = ''
+            if data['use_lower']:
+                charset += string.ascii_lowercase
+            if data['use_upper']:
+                charset += string.ascii_uppercase
+            if data['use_digits']:
+                charset += string.digits
+            if data['use_special']:
+                charset += string.punctuation
+            if data['avoid_similar']:
+                charset = [c for c in charset if c not in similar_chars]
+            length = data['length']
+            password = get_random_string(length, charset)
+    if request.method == 'POST' and 'AddSubmit' in request.POST:
+        addform = PasswordForm(request.POST, prefix='add')
+        generateform = GeneratePasswordForm(request.POST or None, prefix='generate')
+        if addform.is_valid():
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
             s = Passwords()
-            s.userid = form.cleaned_data['userid']
-            s.pw = encryption_suite.encrypt(form.cleaned_data['pw'].encode('utf-8')).hex()
-            s.web = form.cleaned_data['web']
+            s.userid = addform.cleaned_data['userid']
+            s.pw = encryption_suite.encrypt(addform.cleaned_data['pw'].encode('utf-8')).hex()
+            s.web = addform.cleaned_data['web']
             s.user = request.user 
             s.save()
             return redirect('/password/')
     else:
-        form = PasswordForm()
-    return render(request, 'password/add_pw.html', {'form': form})
+        addform = PasswordForm(prefix='add')
+        generateform = GeneratePasswordForm(prefix='generate')
+
+    extra_context = {
+        'add_form':PasswordForm(prefix='add'),
+        'generate_form':GeneratePasswordForm(prefix='generate'),
+        'password':password, 'length':length,
+    }
+    return render(request, 'password/add_pw.html', extra_context)
     
 def del_pw(request, id):
     obj = Passwords.objects.get(id = id)
