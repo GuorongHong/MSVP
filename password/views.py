@@ -25,6 +25,20 @@ def index(request):
         context = {}
     return HttpResponse(template.render(context, request))
 
+def edit(request, id):
+    if 'cipherKey' not in request.session:
+        return reditect('verify_pw')
+    obj = Passwords.objects.get(id = id)
+    if request.method == 'POST' and request.POST.get('npw'):
+        encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
+        obj.pw = encryption_suite.encrypt(request.POST.get('npw').encode('utf-8')).hex()
+        obj.save()
+        return redirect('/password/')
+    encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
+    obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
+    return render(request, 'password/edit.html', {'obj': obj})
+
+
 def add_pw(request):
     password = 'Your password here'
     length = 8

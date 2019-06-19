@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+<ul>
+    <p><li> Website: {{obj.web}} </li>
+    <li> UserID: {{obj.userid}} </li>
+    <li> Password: {{obj.pw}} </li></p>
+</ul>
+
+<form method="POST">
+    {% csrf_token %}
+    New Password: <input type="text" name="npw">
+    <input type="submit" value="Submit">
+</form>
+
+{% else %}
+<p>You are not logged in</p>
+{% endif %}
