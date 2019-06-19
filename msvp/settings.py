@@ -141,3 +141,7 @@ DATABASES['default'].update(prod_db)
 
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

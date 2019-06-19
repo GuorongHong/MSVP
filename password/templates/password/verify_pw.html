@@ -1,11 +1,29 @@
-<form method="POST">
-    {% csrf_token %}
-    <label for="verify_pw">Enter password again: </label>
-    <input type="password" 
-        name="Password" 
-        placeholder="Your password"
-         autocomplete="off" 
-         required
-         autofocus>
-    <button type="submit">Submit</button>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+<div class="wrapper">
+    <div id="formContent">
+    <form method="POST">
+        {% csrf_token %}
+        <h2 for="verify_pw">Password</h2>
+        <input type="password" 
+            name="Password" 
+            placeholder="Enter password again"
+            autocomplete="off" 
+            required
+            autofocus>
+        <input type="submit"></input>
     </form>
+    </div>
+
+    <div id="formFooter">
+        <a class="underlineHover" href="{% url 'login' %}">Back to Login</a>
+    </div>
+</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>

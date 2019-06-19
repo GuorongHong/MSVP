@@ -1,22 +1,39 @@
+<!doctype html>
+<html lang="en">
+
 {% if user.is_authenticated %}
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<head>
+  <h1>Passwords</h1>
+</head>
+
+<div class="container">
 <form method="GET" action="{% url 'search' %}">
     <input type=Text name="q" value="{{request.GET.q}}" placeholder="Search" />
     <button type="submit">Search</button>
 </form>
+</div>
 
+<body>
+  
 {% if data %}
     <ul>
+    <div class="container">
     {% for obj in data %}
-    <fieldset style="width:300px">
+    
       <legend>Password Information</legend>
       <p><li> Website: {{obj.web}} </li>
       <li> UserID: {{obj.userid}} </li>
       <li> Password: {{obj.pw}} </li></p>
       <li><a href='{{obj.id}}/delete/'>Delete</a></li>
       <li><a href='{{obj.id}}/edit/'>Edit</a></li>
-    </fieldset>
     {% endfor %}
+    </div>
     </ul>
     <a href='add_pw/'>Add passwords</a>
 {% else %}
@@ -28,3 +45,9 @@
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Login</a>
 {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
