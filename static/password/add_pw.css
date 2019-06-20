@@ -47,7 +47,7 @@ ul {
 /* STRUCTURE */
 
 .sidebar {
-background-color: rgba(250, 235, 167, 0.208);
+background-color: #f7f7f7d3;
 float: left;
 box-sizing: border-box;
 display: flex;

@@ -57,6 +57,7 @@ justify-content: center;
 -webkit-box-shadow: 0 15px 30px 0 rgba(0,0,0,0.3);
 box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.164);
 text-align: center;
+margin-bottom: 20px;
 }
 
 #formFooter {
