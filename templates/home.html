@@ -14,9 +14,9 @@
   <div class="wrapper">
     <div id="formContent">
       <p>Hello <b>{{ user.username }}</b>! Manage your passwords here.</p>
-      <p><a href='{% url "add_pw" %}'>Add password</a></p>
-      <p><a href='{% url "index" %}'>View passwords</a></p>
-      <p><a href="{% url 'logout' %}">Logout</a></p>
+      <p><a class="underlineHover" href='{% url "add_pw" %}'>Add password</a></p>
+      <p><a class="underlineHover" href='{% url "index" %}'>View passwords</a></p>
+      <p><a class="underlineHover" href="{% url 'logout' %}">Logout</a></p>
     </div>
   </div>
 
