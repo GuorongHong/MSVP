@@ -1,18 +1,43 @@
 {% if user.is_authenticated %}
-<ul>
-    <p><li> Website: {{obj.web}} </li>
-    <li> UserID: {{obj.userid}} </li>
-    <li> Password: {{obj.pw}} </li></p>
-</ul>
 
-<form method="POST">
-    {% csrf_token %}
-    New Password: <input type="text" name="npw">
-    <input type="submit" value="Submit">
-</form>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'password/edit_pw.css' %}">
+</head>
 
-<p><a href='../../'>Back to passwords</a></p>
+<body>
+    <div class="wrapper">
+        <div id="formContent">
+            <h2>Edit Password</h2>
+            <ul>
+                <p><li> <b>Website:</b> {{obj.web}} </li>
+                <li> <b>UserID:</b> {{obj.userid}} </li>
+                <li> <b>Current Password:</b> {{obj.pw}} </li></p>
+            </ul>
+
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="npw" placeholder="New password here">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div id="formFooter">
+            <p><a class="underlineHover" href='../../'>Back to passwords</a></p>
+        </div>
+    </div>
 
 {% else %}
-<p>You are not logged in</p>
+<div class="wrapper">
+    <div id="formContent">
+        <p>You are not logged in.</p>
+        <p><a class="underlineHover" href='../../../'>Back to home</a></p>
+    </div>
+</div>
 {% endif %}
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
