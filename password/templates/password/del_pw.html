@@ -10,7 +10,7 @@
     <div id="formContent">
         <form method="post">
             {% csrf_token %}
-            <p>Are you sure you want to delete the password for <b>"{{object.web}}"</b>?</p>
+            <p>Are you sure you want to <b style="color: rgb(245, 94, 94)">delete</b> the password for <b>"{{object.web}}"</b>?</p>
             <input type="submit" value="Yes">
             <p><a class="underlineHover" href="../../">Cancel</a></p>
         </form>
