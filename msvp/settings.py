@@ -144,5 +144,4 @@ del DATABASES['default']['OPTIONS']['sslmode']
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    'password/static/'
 ]
