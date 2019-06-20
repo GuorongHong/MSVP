@@ -1,19 +1,54 @@
 {% if user.is_authenticated %}
-    {% if results %}
-        <ul>
-        {% for obj in results %}
-        <fieldset style="width:300px">
-        <legend>({{ obj.id }}) Password Information</legend>
-        <p><li> Website: {{obj.web}} </li>
-        <li> UserID: {{obj.userid}} </li>
-        <li> Password: {{obj.pw}} </li></p>
-        <li><a href='../{{obj.id}}/delete/'>Delete</a></li>
-        <li><a href='../{{obj.id}}/edit/'>Edit</a></li>
-        </fieldset>
-        {% endfor %}
-    {% else %}
-        <p>No password information match the search.</p>
-        <a href='../add_pw/'>Add passwords</a>
-    {% endif %}
-<p><a href='../'>Back to passwords</a></p>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'password/index.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="sidebar">
+                    <h1>Search Results</h1>
+                    <form method="GET" action="{% url 'search' %}">
+                        <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
+                        <button type="submit"><span class="fa fa-search"></span></button>
+                    </form>
+                    <p><ul><a id="sidebarContent" class="underlineHover" href="../">Back to passwords</a></ul>
+                    <ul><a id="sidebarContent" class="underlineHover" href="../add_pw/">Add password</a></ul>
+                    <ul><a id="sidebarContent" class="underlineHover" href="{% url 'logout' %}">Logout</a></ul></p>
+                </div>
+            </div>
+
+            <div class="col-8">
+                {% if results %}
+                <ul>
+                {% for obj in results %}
+                <div class="wrapper">
+                    <div id="formContent">
+                        <p><li> <b>Website:</b> {{obj.web}} </li>
+                        <li> <b>UserID:</b> {{obj.userid}} </li>
+                        <li> <b>Password:</b> {{obj.pw}} </li></p>
+                        <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
+                        <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a></p>
+                    </div>
+                </div>
+                {% endfor %}
+                </ul>
+                {% else %}
+                <div class="vertical-center">
+                    <p>No password information match the search.</p>
+                    <p><a class="underlineHover" href="../add_pw/">Add password</a></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
 {% endif %}
+

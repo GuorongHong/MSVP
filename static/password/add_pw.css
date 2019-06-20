@@ -155,6 +155,7 @@ padding: 15px 80px;
 text-align: center;
 text-decoration: none;
 display: inline-block;
+white-space: normal;
 text-transform: uppercase;
 font-size: 13px;
 -webkit-border-radius: 5px 5px 5px 5px;

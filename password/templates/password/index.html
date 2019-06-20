@@ -41,18 +41,19 @@
             {% endfor %}
             </ul>
         {% else %}
+        <div class="vertical-center">
             <p>No passwords are available.</p>
+            <p><a class="underlineHover" href="add_pw/">Add password</a></p>
+        </div>
         {% endif %}
       </div>
     </div>
   </div>
 
   {% else %}
-  <div class="wrapper">
-      <div id="formContent">
-          <p>You are not logged in.</p>
-          <p><a class="underlineHover" href='../'>Back to home</a></p>
-      </div>
+  <div class="vertical-center">
+        <p>You are not logged in.</p>
+        <p><a class="underlineHover" href='../'>Back to home</a></p>
   </div>
   {% endif %}
 </div>
