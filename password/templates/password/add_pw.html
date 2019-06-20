@@ -1,30 +1,58 @@
-<form method="post">
-    {% csrf_token %}
-    <p>
-        <label>Website: </label>{{ add_form.web }}
-    </p>
-    <p>
-        <label>UserID: </label>{{ add_form.userid }}
-    </p>
-    <p>
-        <label>Password: </label>{{ add_form.pw }}
-    </p>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'password/add_pw.css' %}">
+</head>
 
-    <input type="submit" name="AddSubmit" value="Submit">
-</form>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="sidebar">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div id=password>
+                        <h2>Generate a password here!</h2>
+                        <p style="color: grey">You may edit generated password here and paste it into the password field.</p>
+                        <p><output name="password" size="{{ length }}" contenteditable="true">{{ password }}</output></p>
+                        </div>
+                        <ul>
+                            {{ generate_form.as_ul }}
+                        </ul>
+                        <p><input type="submit" name="GenerateSubmit" value="Generate password"></p>
+                    </form>
+                </div>
+            </div>
 
-<form method="post">
-    {% csrf_token %}
-    <div id=password>
-    <h3>Generate a password here!</h3>
-    <p>You may edit generated password here and paste it into the password field.</p>
-    <output name="password" size="{{ length }}" contenteditable="true">{{ password }}</output>
+            <div class="col-md-8">
+                <div class="wrapper">
+                    <div id="formContent">
+                        <form method="post">
+                            {% csrf_token %}
+                            <h2>Add Password</h2>
+                            <p>
+                                {{ add_form.web }}
+                            </p>
+                            <p>
+                            {{ add_form.userid }}
+                            </p>
+                            <p>
+                                {{ add_form.pw }}
+                            </p>
+    
+                            <input type="submit" name="AddSubmit" value="Submit">
+                        </form>
+                    </div>
+    
+                    <div id="formFooter">
+                        <p><a class="underlineHover" href='../'>Back to passwords</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <ul>
-        {{ generate_form.as_p }}
-    </ul>
-    <p><input type="submit" name="GenerateSubmit" value="Generate password"></p>
-</form>
 
-<p><a href='../generate_pw/'>Generate passwords here</a></p>
-<p><a href='../'>Back to passwords</a></p>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>

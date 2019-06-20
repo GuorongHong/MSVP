@@ -1,5 +1,22 @@
-<form method="post">
-    {% csrf_token %}
-    <h1>Do you want to delete the password for "{{object.web}}"?</h1>
-    <p><input type="submit" value="Yes"> <a href="../../">Cancel</a></p>
-</form>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'password/del_pw.css' %}">
+</head>
+
+<body>
+<div class="wrapper">
+    <div id="formContent">
+        <form method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete the password for <b>"{{object.web}}"</b>?</p>
+            <input type="submit" value="Yes">
+            <p><a class="underlineHover" href="../../">Cancel</a></p>
+        </form>
+    </div>
+</div>
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
