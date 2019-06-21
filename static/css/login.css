@@ -63,14 +63,12 @@ text-align: center;
 #formFooter {
 background-color: #f6f6f6;
 border-top: 0px solid #dce8f1;
-padding: 20px;
+padding: 20px 20px 10px 20px;
 text-align: center;
 -webkit-border-radius: 0 0 10px 10px;
 border-radius: 0 0 10px 10px;
-width:36%;
+width: 36%;
 }
-
-
 
 /* TABS */
 

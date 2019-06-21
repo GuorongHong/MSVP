@@ -17,7 +17,7 @@
           <h1>Passwords</h1>
           <form method="GET" action="{% url 'search' %}">
               <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
-              <button type="submit"><span class="fa fa-search"></span></button>
+              <button id="searchButton" type="submit"><span class="fa fa-search"></span></button>
           </form>
 
           <p><ul><a id="sidebarContent" class="underlineHover" href='add_pw/'>Add password</a></ul>

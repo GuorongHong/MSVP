@@ -67,7 +67,7 @@ padding: 20px;
 text-align: center;
 -webkit-border-radius: 0 0 10px 10px;
 border-radius: 0 0 10px 10px;
-width:36%;
+width: inherit;
 }
 
 /* TABS */
