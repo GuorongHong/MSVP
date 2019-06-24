@@ -9,12 +9,21 @@
   <link rel="stylesheet" href="{% static 'password/index.css' %}">
 </head>
 
+<div class="header">
+  <a href="{% url 'home' %}">Much Security Very Password</a>
+  <div class="header-right">
+    <a class = "active" href="{% url 'index' %}" class="underlineHover">Passwords</a>
+    <a href="{% url 'about' %}" class="underlineHover">About</a>
+  </div>
+</div>
+
 <body>
 <div class="container-fluid">
   <div class="row">
       <div class="col-4">
         <div class="sidebar">
           <h1>Passwords</h1>
+          <h3 id="userInfo">User: <b>{{ user.username }}</b></h3>
           <form method="GET" action="{% url 'search' %}">
               <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
               <button id="searchButton" type="submit"><span class="fa fa-search"></span></button>
@@ -31,7 +40,8 @@
             {% for obj in data %}
             <div class="wrapper">
               <div id="formContent">
-                <p><li> <b>Website:</b> {{obj.web}} </li>
+                <p>
+                <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
                 <li> <b>Password:</b> {{obj.pw}} </li></p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>

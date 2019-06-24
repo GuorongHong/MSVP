@@ -3,6 +3,14 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<div class="header">
+  <a href="{% url 'home' %}">Much Security Very Password</a>
+  <div class="header-right">
+    <a href="{% url 'index' %}" class="underlineHover">Passwords</a>
+    <a href="{% url 'about' %}" class="underlineHover">About</a>
+  </div>
+</div>
+
 {% if user.is_authenticated %}
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

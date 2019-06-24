@@ -42,6 +42,36 @@ ul {
 
 /* STRUCTURE */
 
+
+.header {
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+}
+
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px; 
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+.header a:hover {
+    color: #4986bb;
+}
+
+.header a.active {
+    color: #4986bb;
+}
+
+.header-right {
+    float: right;
+}
+
 .wrapper {
 display: flex;
 align-items: center;
@@ -72,6 +102,7 @@ padding: 20px;
 text-align: center;
 -webkit-border-radius: 0px 0 10px 10px;
 border-radius: 0 0 10px 10px;
+max-width: 550px;
 width: inherit;
 }
 

@@ -59,6 +59,35 @@ ul {
 
 /* STRUCTURE */
 
+.header {
+    overflow: hidden;
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+}
+
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px; 
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+.header a:hover {
+    color: #4986bb;
+}
+
+.header a.active {
+    color: #4986bb;
+}
+
+.header-right {
+    float: right;
+}
+
 .sidebar {
     background-color: #fcf0ce;
     float: left;
@@ -77,7 +106,13 @@ ul {
 
 #sidebarContent {
     color: #4986bb;
-    margin: 0px 20px 0px 10px;
+    margin: 0px 20px 0px 15px;
+}
+
+#userInfo {
+    align-content: inherit;
+    font-size: 17px;
+    margin: 0px 20px 20px 15px;
 }
 
 .button:active {
@@ -143,8 +178,8 @@ ul {
 
 .vertical-center {
     margin: 0;
-    position: sticky;
-    top: 30%;
+    position: relative;
+    top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }

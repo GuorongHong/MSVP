@@ -1,7 +1,7 @@
 from django import forms 
 
 class PasswordForm(forms.Form):
-    web = forms.CharField(label='Website', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Website title"}))
+    web = forms.CharField(label='Website URL', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Website URL"}))
     userid = forms.CharField(label='UserID', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your UserID"}))
     pw = forms.CharField(label='Password', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your Password"}))
     

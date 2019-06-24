@@ -5,6 +5,14 @@
     <link rel="stylesheet" href="{% static 'password/add_pw.css' %}">
 </head>
 
+<div class="header">
+    <a href="{% url 'home' %}">Much Security Very Password</a>
+    <div class="header-right">
+        <a href="{% url 'index' %}" class="underlineHover">Passwords</a>
+        <a href="{% url 'about' %}" class="underlineHover">About</a>
+    </div>
+</div>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -33,6 +41,9 @@
                         <form method="post">
                             {% csrf_token %}
                             <h2>Add Password</h2>
+                            <!-- <p>
+                                {{ add_form.webname }}
+                            </p> -->
                             <p>
                                 {{ add_form.web }}
                             </p>

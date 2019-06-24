@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<div class="header">
+    <a href="{% url 'home' %}">Much Security Very Password</a>
+    <div class="header-right">
+        <a href="{% url 'index' %}" class="underlineHover">Passwords</a>
+        <a class="active" href="{% url 'about' %}" class="underlineHover">About</a>
+    </div>
+</div>
+
+<body>
+    <div class="wrapper">
+        <div id="formContent">
+            <h2>About MSVP</h2>
+            <p>Much Security Very Password (MSVP) is an online password manager designed to help
+            users store and keep track of their passwords. In doing so, we hope to encourage users to 
+            create complex passwords when registering for accounts online in order to better 
+            secure their information against hacking. We have provided a custom password
+            generator tool, and you can be rest assured that password informaton stored on
+            this website is encrypted securely against malicious hackers so your information
+            will not be compromised!</p>
+        </div>
+    </div>]
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
+{% endblock %}
