@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'password.apps.PasswordConfig',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +149,9 @@ del DATABASES['default']['OPTIONS']['sslmode']
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

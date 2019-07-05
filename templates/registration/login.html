@@ -9,6 +9,15 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
+
+<div class="header">
+  <a href="{% url 'home' %}">Much Security Very Password</a>
+  <div class="header-right">
+    <a href="{% url 'index' %}" class="underlineHover">Passwords</a>
+    <a href="{% url 'about' %}" class="underlineHover">About</a>
+  </div>
+</div>
+
 <body>
 <div class="wrapper">
     <div id="formContent">
