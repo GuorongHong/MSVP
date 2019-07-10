@@ -21,6 +21,7 @@
             <div class="col-4">
                 <div class="sidebar">
                     <h1>Search Results</h1>
+                    <h3 id="userInfo">User: <b>{{ user.username }}</b></h3>
                     <form method="GET" action="{% url 'search' %}">
                         <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
                         <button type="submit"><span class="fa fa-search"></span></button>
