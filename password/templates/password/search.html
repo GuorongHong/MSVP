@@ -26,8 +26,9 @@
                         <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
                         <button type="submit"><span class="fa fa-search"></span></button>
                     </form>
-                    <p><ul><a id="sidebarContent" class="underlineHover" href="../">Back to passwords</a></ul>
-                    <ul><a id="sidebarContent" class="underlineHover" href="../add_pw/">Add password</a></ul>
+                    <p><ul><a id="sidebarContent" class="underlineHover" href='add_pw/'>Add new password</a></ul>
+                    <ul><a id="sidebarContent" class="underlineHover" href='change_pw/'>Change master password</a></ul>
+                    <ul><a id="sidebarContent" class="underlineHover" href='../accounts/hint/edit'>Edit Hint</a></ul>
                     <ul><a id="sidebarContent" class="underlineHover" href="{% url 'logout' %}">Logout</a></ul></p>
                 </div>
             </div>

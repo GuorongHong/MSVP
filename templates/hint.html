@@ -1,40 +1,37 @@
-{% if user.is_authenticated %}
+<!-- if no username input then load form, else show the relevant hint -->
 
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'password/add_pw.css' %}">
+    <link rel="stylesheet" href="{% static 'password/index.css' %}">
 </head>
 
 <div class="header">
-    <a href="{% url 'home' %}">Much Security Very Password</a>
-    <div class="header-right">
-        <a href="{% url 'index' %}" class="underlineHover">Passwords</a>
-        <a href="{% url 'about' %}" class="underlineHover">About</a>
-    </div>
+<a href="{% url 'home' %}">Much Security Very Password</a>
+<div class="header-right">
+    <a class = "active" href="{% url 'index' %}" class="underlineHover">Passwords</a>
+    <a href="{% url 'about' %}" class="underlineHover">About</a>
+</div>
 </div>
 
 <body>
     <div class="wrapper">
         <div id="formContent">
-            <h2>Change Master Password</h2>
-            <p>This is the new password you will use to log into your account. <br>
-            Do not forget this password!</p>
-            <form method="POST">
-                    {% csrf_token %}
-                <input type="text" name="new_pw" placeholder="New password here">
-                <p><input type="submit" value="Save"></p>
-            </form>
+            <h2>Password Hint</h2>
+            <p><b>User: </b> {{ username }}</p>
+            {% if hint == "No hint available" %}
+                <p>No hint available, sorry!</p>
+            {% else %}
+                <p><b>Hint: </b> {{ hint }} </p>
+            {% endif %}
         </div>
 
         <div id="formFooter">
-            <p><a class="underlineHover" href="../">Cancel</a></p>
+        <a class="underlineHover" href="{% url 'login' %}">Back to Login</a>
         </div>
     </div>
-
-{% endif %}
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -11,7 +11,6 @@ from django.contrib.auth import logout
 from Crypto.Cipher import AES
 import string
 
-
 def index(request):
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
@@ -30,7 +29,7 @@ def index(request):
 
 def edit(request, id):
     if 'cipherKey' not in request.session:
-        return reditect('verify_pw')
+        return redirect('verify_pw')
     obj = Passwords.objects.get(id = id)
     if request.method == 'POST' and request.POST.get('npw'):
         encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))

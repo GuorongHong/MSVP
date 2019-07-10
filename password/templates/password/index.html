@@ -29,8 +29,9 @@
               <button id="searchButton" type="submit"><span class="fa fa-search"></span></button>
           </form>
 
-          <p><ul><a id="sidebarContent" class="underlineHover" href='add_pw/'>Add password</a></ul>
+          <p><ul><a id="sidebarContent" class="underlineHover" href='add_pw/'>Add new password</a></ul>
             <ul><a id="sidebarContent" class="underlineHover" href='change_pw/'>Change master password</a></ul>
+            <ul><a id="sidebarContent" class="underlineHover" href='../accounts/hint/edit'>Edit Hint</a></ul>
           <ul><a id="sidebarContent" class="underlineHover" href="{% url 'logout' %}">Logout</a></ul></p>
         </div>
       </div>
@@ -54,7 +55,7 @@
         {% else %}
         <div class="vertical-center">
             <p>No passwords are available.</p>
-            <p><a class="underlineHover" href="add_pw/">Add password</a></p>
+            <p><a class="underlineHover" href="add_pw/">Add new password</a></p>
         </div>
         {% endif %}
       </div>

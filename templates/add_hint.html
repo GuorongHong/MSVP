@@ -19,18 +19,25 @@
 <body>
     <div class="wrapper">
         <div id="formContent">
-            <h2>Change Master Password</h2>
-            <p>This is the new password you will use to log into your account. <br>
-            Do not forget this password!</p>
+            <h2>Edit Hint</h2>
+            <p>This is the hint to be shown when you forget your master password.</p>
+            <p>Leave field blank to delete hint.</p>
+            
+            {% if current_hint != False %}
+                <p><b>Current Hint: </b> {{ current_hint }}</p>
+            {% else %}
+                <p><b>You have no hints currently.</b></p>
+            {% endif %}
+
             <form method="POST">
-                    {% csrf_token %}
-                <input type="text" name="new_pw" placeholder="New password here">
-                <p><input type="submit" value="Save"></p>
+                {% csrf_token %}
+            <input type="text" name="new_hint" placeholder="New hint here">
+            <p><input type="submit" value="Save"></p>
             </form>
         </div>
 
         <div id="formFooter">
-            <p><a class="underlineHover" href="../">Cancel</a></p>
+            <p><a class="underlineHover" href="../../../password/">Cancel</a></p>
         </div>
     </div>
 
