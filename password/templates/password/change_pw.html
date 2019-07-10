@@ -1,0 +1,6 @@
+<h1>Change Password</h1>
+<form method="POST">
+    {% csrf_token %}
+<input type="text" name="new_pw">
+<input type="submit" value="Save">
+</form>

@@ -6,6 +6,8 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string, pbkdf2, salted_hmac
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from Crypto.Cipher import AES
 import string
 
@@ -144,3 +146,27 @@ def search(request):
         return render(request, 'password/search.html', {'results':results})
     else:
         return render(request, 'password/search.html', {})
+
+def change_pw(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+            if 'cipherKey' not in request.session:
+                return redirect('verify_pw')
+            data = Passwords.objects.filter(user = request.user)
+            u = User.objects.get(username = request.user.username)
+            u.set_password(request.POST.get('new_pw'))
+            u.save()
+            _, _, salt, _ = u.password.split('$')
+            key = pbkdf2(request.POST.get("new_pw"), salt, 50000, 48)
+            key,iv = key[16:], key[0:16]
+            for obj in data:
+                encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
+                obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
+                new_encryption_suite = AES.new(key, AES.MODE_CFB, iv)
+                obj.pw = new_encryption_suite.encrypt(obj.pw.encode('utf-8')).hex()
+                obj.save()
+            logout(request)
+            return redirect('login')
+    else:
+        return render(request, 'password/change_pw.html', {})
+
+

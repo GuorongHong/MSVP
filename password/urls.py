@@ -10,4 +10,5 @@ urlpatterns = [
     path('verify_pw/', views.verify_pw, name='verify_pw'),
     path('<int:id>/edit/', views.edit, name='edit'),
     path('search/', views.search, name='search'),
+    path('change_pw/', views.change_pw, name='change_pw'),
 ]
