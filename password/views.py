@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Passwords
-from .forms import PasswordForm, GeneratePasswordForm
+from .forms import PasswordForm, GeneratePasswordForm, SignUpForm
 from django.db.models import Q
 from django.template import loader
 from django.shortcuts import render, redirect
@@ -11,6 +11,17 @@ from django.contrib.auth import logout
 from Crypto.Cipher import AES
 import string
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
 def index(request):
     if 'cipherKey' not in request.session:
