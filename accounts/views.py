@@ -33,13 +33,13 @@ def signup(request):
 def login_hint(request):
 
     def retrieve_hint(request):
-        data = PasswordHint.objects.get(username=request.user.username)
+        data = PasswordHint.objects.get(username=name_input)
         hint = data.hint
         username = data.username
         context = {
-        'data': data,
-        'hint': hint,
-        'username': data.username
+            'data': data,
+            'hint': hint,
+            'username': username
         }
         return render(request, 'hint.html', context)
 
@@ -47,8 +47,8 @@ def login_hint(request):
         form = GetHintForm(request.POST)
         # check if username matches any in the db
         if form.is_valid():
-            name_input = request.POST['username']
-            if GetHintForm().username_present(name_input) != False:
+            name_input = form.cleaned_data['username']
+            if form.username_present(name_input) != False:
                 return retrieve_hint(request)
             else:
                 return HttpResponse('No such username')
