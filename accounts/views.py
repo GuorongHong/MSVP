@@ -72,10 +72,10 @@ def add_hint(request):
             }
         )
         data = PasswordHint.objects.get(username=name_input)
-        if data.hint != "No hint available":
-            current_hint = data.hint
-        else:
+        if data.hint == "No hint available" or data.hint == '':
             current_hint = False
+        else:
+            current_hint = data.hint
 
         if request.method == 'POST':
             form = AddHintForm(request.POST)

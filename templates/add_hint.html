@@ -23,10 +23,10 @@
             <p>This is the hint to be shown when you forget your master password.</p>
             <p>Leave field blank to delete hint.</p>
             
-            {% if current_hint != False %}
-                <p><b>Current Hint: </b> {{ current_hint }}</p>
+            {% if current_hint == False or current_hint == 'No hint available' %}
+                <p><b>You have no hints currently.</b></p>    
             {% else %}
-                <p><b>You have no hints currently.</b></p>
+                <p><b>Current Hint: </b> {{ current_hint }}</p>
             {% endif %}
 
             <form method="POST">
