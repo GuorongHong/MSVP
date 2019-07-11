@@ -7,6 +7,8 @@ from django.template import loader
 from django.views import generic
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from .models import PasswordHint
+from .forms import SignUpForm, GetHintForm, AddHintForm
 
 from .forms import SignUpForm, GetHintForm
 from .models import PasswordHint
@@ -15,6 +17,11 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
+            p = PasswordHint()
+            ## set defaults for when no hint inputted
+            p.username = request.user.username
+            p.hint = "No hint available"
+            p.save()
             form.save()
             return redirect('home')
     else:
@@ -26,7 +33,7 @@ def signup(request):
 def login_hint(request):
 
     def retrieve_hint(request):
-        data = PasswordHint.objects.get(username=name_input)
+        data = PasswordHint.objects.get(username=request.user.username)
         hint = data.hint
         username = data.username
         context = {
@@ -52,18 +59,39 @@ def login_hint(request):
 def add_hint(request):
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
+
     if request.user.is_authenticated:
         name_input = request.user.username
+        ## check if there is any hint tagged to the username adn show it
+        ## if not, create default new one and show that instead
+        check = PasswordHint.objects.get_or_create(
+            username=name_input,
+            defaults={
+                'username':name_input,
+                'hint':"No hint available"
+            }
+        )
         data = PasswordHint.objects.get(username=name_input)
         if data.hint != "No hint available":
             current_hint = data.hint
         else:
             current_hint = False
+
         if request.method == 'POST':
-            if request.POST['new_hint'] == '':
-                data.hint = "No hint available"
-            else:
-                data.hint = request.POST['new_hint']
-            data.save()
-            return redirect('/password/')
-    return render(request, 'add_hint.html', {'data':data, 'current_hint':current_hint})
+            form = AddHintForm(request.POST)
+            if form.is_valid():
+                if request.POST['new_hint'] == '':
+                    data.hint = "No hint available"
+                else:
+                    ## is there something wrong here wtf
+                    data.hint = form.cleaned_data['new_hint']
+                data.save()
+                return redirect('index')
+
+        context = {
+            'data':data, 
+            'current_hint':current_hint
+            }
+    else:
+        context = {}
+    return render(request, 'add_hint.html', context)
