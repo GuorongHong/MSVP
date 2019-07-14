@@ -1,6 +1,4 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Passwords
-from .forms import PasswordForm, GeneratePasswordForm
 from django.db.models import Q
 from django.template import loader
 from django.shortcuts import render, redirect
@@ -8,7 +6,13 @@ from django.utils.crypto import get_random_string, pbkdf2, salted_hmac
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+
+from .models import Passwords
+from .forms import PasswordForm, GeneratePasswordForm
+
 from Crypto.Cipher import AES
+
+from random import randint
 import string
 
 def index(request):
@@ -51,19 +55,55 @@ def add_pw(request):
         generateform = GeneratePasswordForm(request.POST or None, prefix='generate')
         if generateform.is_valid():
             data = generateform.cleaned_data
-            charset = ''
-            if data['use_lower']:
-                charset += string.ascii_lowercase
-            if data['use_upper']:
-                charset += string.ascii_uppercase
-            if data['use_digits']:
-                charset += string.digits
-            if data['use_special']:
-                charset += string.punctuation
-            if data['avoid_similar']:
-                charset = [c for c in charset if c not in similar_chars]
             length = data['length']
-            password = get_random_string(length, charset)
+            charset = ''
+            personal_str = data['personal_details']
+            # check if personal details were included
+            if personal_str != '':
+                # from the string, get list with each word as an item
+                personal_lst = str(personal_str).split(",")
+                # length of characters of personal words inputted
+                personal_length = len(personal_str)
+                for char in personal_str:
+                    if char == ",":
+                        personal_length -= 1
+                # check if number of characters in personal details exceeds length set
+                if personal_length > length:
+                    password = "Length of personal details exceed password length!"
+                else:
+                    if data['use_lower']:
+                        charset += string.ascii_lowercase
+                    if data['use_upper']:
+                        charset += string.ascii_uppercase
+                    if data['use_digits']:
+                        charset += string.digits
+                    if data['use_special']:
+                        charset += string.punctuation
+                    if data['avoid_similar']:
+                        charset = [c for c in charset if c not in similar_chars]
+                    # randomly generate password without details, then afterwards 
+                    # randomly insert the items in personal_arr into the password generated
+                    length -= personal_length
+                    before_password = get_random_string(length, charset)
+
+                    for item in personal_lst:
+                        pos = randint(0, len(before_password) - 1)  # pick random position to insert item
+                        before_password = "".join((before_password[:pos], item, before_password[pos:])) # insert item at pos                    
+                    
+                    password = before_password
+            else:
+                if data['use_lower']:
+                    charset += string.ascii_lowercase
+                if data['use_upper']:
+                    charset += string.ascii_uppercase
+                if data['use_digits']:
+                    charset += string.digits
+                if data['use_special']:
+                    charset += string.punctuation
+                if data['avoid_similar']:
+                    charset = [c for c in charset if c not in similar_chars]
+                password = get_random_string(length, charset)
+                
     if request.method == 'POST' and 'AddSubmit' in request.POST:
         addform = PasswordForm(request.POST, prefix='add')
         generateform = GeneratePasswordForm(request.POST or None, prefix='generate')

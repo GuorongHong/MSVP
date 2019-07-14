@@ -83,7 +83,6 @@ def add_hint(request):
                 if request.POST['new_hint'] == '':
                     data.hint = "No hint available"
                 else:
-                    ## is there something wrong here wtf
                     data.hint = form.cleaned_data['new_hint']
                 data.save()
                 return redirect('index')
