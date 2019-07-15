@@ -178,7 +178,9 @@ def verify_pw(request):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
-        results = Passwords.objects.filter(Q(web__icontains=query) | Q(userid__icontains=query))
+        results = Passwords.objects.filter(
+            Q(user=request.user) & Q(web__icontains=query) | 
+            Q(user=request.user) & Q(userid__icontains=query))
         for obj in results:
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
             obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
