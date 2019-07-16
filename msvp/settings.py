@@ -141,8 +141,7 @@ STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_REDIRECT_URL = 'two_factor:profile'
-LOGOUT_REDIRECT_URL = 'two_factor:login'
-LOGIN_URL = 'two_factor:login'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
