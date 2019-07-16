@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="{% static 'password/index.css' %}">
 </head>
 
-<script>
-  
+<script type="text/javascript">
   function showPassword() {
     if (document.getElementById("myPassword").innerHTML == "•••••") {
       document.getElementById("myPassword").innerHTML = "{{ obj.pw }}";
