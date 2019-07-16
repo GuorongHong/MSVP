@@ -47,7 +47,6 @@
       </div>
 
       <div class="col-8">
-        <p>Click to view/hide password!</p>
         {% if data %}
             <ul>
             {% for obj in data %}
@@ -56,7 +55,7 @@
                 <p>
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password:</b> <p id="myPassword" onclick="showPassword()" style="color:rgb(251, 251, 251);">{{ obj.pw }}</p>
+                <li> <b>Password: Click below to view/hide password!</b> <p id="myPassword" onclick="showPassword()" style="color:rgb(251, 251, 251);">{{ obj.pw }}</p>
                 </li>
                 <li> <b>Email:</b> {{obj.email}} </li></p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
