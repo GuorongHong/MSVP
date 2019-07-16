@@ -9,16 +9,6 @@
   <link rel="stylesheet" href="{% static 'password/index.css' %}">
 </head>
 
-<script>
-  function showPassword() {
-    if (document.getElementById("myPassword").style.color == "rgb(251, 251, 251)") {
-      document.getElementById("myPassword").style.color = "black";
-    } else {
-      document.getElementById("myPassword").style.color = "rgb(251, 251, 251)";
-    }
-  }
-</script>
-
 <div class="header">
   <a href="{% url 'home' %}">Much Security Very Password</a>
   <div class="header-right">
@@ -50,6 +40,17 @@
         {% if data %}
             <ul>
             {% for obj in data %}
+
+            <script>
+              function showPassword() {
+                if (document.getElementById("myPassword").style.color == "rgb(251, 251, 251)") {
+                  document.getElementById("myPassword").style.color = "black";
+                } else {
+                  document.getElementById("myPassword").style.color = "rgb(251, 251, 251)";
+                }
+              }
+            </script>
+
             <div class="wrapper">
               <div id="formContent">
                 <p>
