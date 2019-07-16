@@ -6,6 +6,7 @@ from django.utils.crypto import get_random_string, pbkdf2, salted_hmac
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django_otp.decorators import otp_required
 
 from .models import Passwords
 from .forms import PasswordForm, GeneratePasswordForm

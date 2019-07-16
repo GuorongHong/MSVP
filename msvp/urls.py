@@ -18,7 +18,9 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.conf.urls import url
+from two_factor.urls import urlpatterns as tf_urls
+from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +30,6 @@ urlpatterns = [
     path('password/', include('password.urls')),
     path('about/', TemplateView.as_view(template_name='about.html'), name = 'about'),
     path('api/v1/', include('api.urls')),
+    url(r'', include(tf_urls)),
+    url(r'', include(tf_twilio_urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
