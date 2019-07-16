@@ -12,10 +12,10 @@
 <script>
   
   function showPassword() {
-    if (document.getElementById("myPassword").input.type == "password") {
-      document.getElementById("myPassword").input.type = "text";
+    if (document.getElementById("myPassword").innerHTML == "•••••") {
+      document.getElementById("myPassword").innerHTML = "{{ obj.pw }}";
     } else {
-      document.getElementById("myPassword").input.type = "password";
+      document.getElementById("myPassword").innerHTML = "•••••";
     }
   }
 </script>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="col-8">
-        <p>Click to view password!</p>
+        <p>Click to view/hide password!</p>
         {% if data %}
             <ul>
             {% for obj in data %}
@@ -57,7 +57,7 @@
                 <p>
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password:</b> <input type="password" id="myPassword" onclick="showPassword()" style="background-color:rgb(251, 251, 251);" value="{{ obj.pw }}" readonly>
+                <li> <b>Password:</b> <p id="myPassword" onclick="showPassword()">•••••</p>
                 </li>
                 <li> <b>Email:</b> {{obj.email}} </li></p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
