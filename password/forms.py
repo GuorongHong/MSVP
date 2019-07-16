@@ -5,6 +5,7 @@ class PasswordForm(forms.Form):
     web = forms.CharField(label='Website URL', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Website URL"}))
     userid = forms.CharField(label='UserID', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your UserID"}))
     pw = forms.CharField(label='Password', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your Password"}))
+    email = forms.CharField(label='Email', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Your Email"}))
     
 class GeneratePasswordForm(forms.Form):
     length = forms.IntegerField(label='Length', min_value = 4, max_value = 128)

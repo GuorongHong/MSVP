@@ -8,5 +8,6 @@ class Passwords(models.Model):
     userid = models.CharField(max_length = 200)
     pw = models.CharField(max_length = 200)
     web = models.CharField(max_length = 200)
+    email = models.CharField(max_length = 200)
     def __str__(self):
         return self.web

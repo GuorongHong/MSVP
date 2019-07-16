@@ -113,6 +113,7 @@ def add_pw(request):
             s.userid = addform.cleaned_data['userid']
             s.pw = encryption_suite.encrypt(addform.cleaned_data['pw'].encode('utf-8')).hex()
             s.web = addform.cleaned_data['web']
+            s.email = addform.cleaned_data['email']
             s.user = request.user 
             s.save()
             return redirect('/password/')
