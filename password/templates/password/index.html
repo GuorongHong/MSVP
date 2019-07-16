@@ -10,9 +10,10 @@
 </head>
 
 <script type="text/javascript">
+  var pw = "{{ obj.pw }}";
   function showPassword() {
     if (document.getElementById("myPassword").innerHTML == "•••••") {
-      document.getElementById("myPassword").innerHTML = "{{ obj.pw }}";
+      document.getElementById("myPassword").innerHTML = pw;
     } else {
       document.getElementById("myPassword").innerHTML = "•••••";
     }
