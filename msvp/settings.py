@@ -140,7 +140,7 @@ STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-LOGIN_REDIRECT_URL = '/password/'
+LOGIN_REDIRECT_URL = 'two_factor:profile'
 LOGOUT_REDIRECT_URL = 'two_factor:login'
 LOGIN_URL = 'two_factor:login'
 
