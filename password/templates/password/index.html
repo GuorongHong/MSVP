@@ -11,12 +11,12 @@
 
 <script>
   function mouseOver() {
-  document.getElementById("myPassword").input = "text";
-}
+    document.getElementById("myPassword").innerHTML = '{{ obj.pw }}';
+  }
 
-function mouseOut() {
-  document.getElementById("demo").input = "password";
-}
+  function mouseOut() {
+    document.getElementById("myPassword").innerHTML = "•••••••";
+  }
 </script>
 
 <div class="header">
@@ -47,6 +47,7 @@ function mouseOut() {
       </div>
 
       <div class="col-8">
+        <p>Hover to view password!</p>
         {% if data %}
             <ul>
             {% for obj in data %}
@@ -55,7 +56,7 @@ function mouseOut() {
                 <p>
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password:</b> <input type="password" value='{{ obj.pw }}' id="myPassword" onmouseover="mouseOver()" onmouseout="mouseOut()"> 
+                <li> <b>Password:</b> <div id="myPassword" onmouseover="mouseOver()" onmouseout="mouseOut()">{{ obj.pw }}</div>
                 </li>
                 <li> <b>Email:</b> {{obj.email}} </li></p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
