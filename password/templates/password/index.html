@@ -11,11 +11,11 @@
 
 <script>
   function mouseOver() {
-    document.getElementById("myPassword").innerHTML = '{{ obj.pw }}';
+    document.getElementById("myPassword").input.type = "text";
   }
 
   function mouseOut() {
-    document.getElementById("myPassword").innerHTML = "•••••••";
+    document.getElementById("myPassword").input.type = "password";
   }
 </script>
 
@@ -56,7 +56,7 @@
                 <p>
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password:</b> <div id="myPassword" onmouseover="mouseOver()" onmouseout="mouseOut()">{{ obj.pw }}</div>
+                <li> <b>Password:</b> <input type="password" id="myPassword" onmouseover="mouseOver()" onmouseout="mouseOut()" value="{{ obj.pw }}" readonly>
                 </li>
                 <li> <b>Email:</b> {{obj.email}} </li></p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
