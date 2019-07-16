@@ -42,11 +42,12 @@
                         <p>
                         <!-- <li> <b>Website:</b> {{obj.webname}} </li> -->
                         <li> <b>Website URL:</b> {{obj.web}} </li>
+                        <li> <b>Email:</b> {{obj.email}} </li>
                         <li> <b>UserID:</b> {{obj.userid}} </li>
                         <li> <b>Password: </b>  Highlight below to view password!
                             <p id="myPassword" style="color:rgb(251, 251, 251);">{{ obj.pw }}</p> </li></p>
-                        <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
-                        <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a></p>
+                        <p><a id="edit" style="text-decoration: none" href='../{{obj.id}}/edit/'>Edit</span>
+                        <a id="edit" style="text-decoration: none" href='../{{obj.id}}/delete/'>Delete</a></p>
                     </div>
                 </div>
                 {% endfor %}
