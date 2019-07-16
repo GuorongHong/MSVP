@@ -10,12 +10,13 @@
 </head>
 
 <script>
-  function mouseOver() {
-    document.getElementById("myPassword").input.type = "text";
-  }
-
-  function mouseOut() {
-    document.getElementById("myPassword").input.type = "password";
+  
+  function showPassword() {
+    if (document.getElementById("myPassword").input.type == "password") {
+      document.getElementById("myPassword").input.type = "text";
+    } else {
+      document.getElementById("myPassword").input.type = "password";
+    }
   }
 </script>
 
@@ -47,7 +48,7 @@
       </div>
 
       <div class="col-8">
-        <p>Hover to view password!</p>
+        <p>Click to view password!</p>
         {% if data %}
             <ul>
             {% for obj in data %}
@@ -56,7 +57,7 @@
                 <p>
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password:</b> <input type="password" id="myPassword" onmouseover="mouseOver()" onmouseout="mouseOut()" value="{{ obj.pw }}" readonly>
+                <li> <b>Password:</b> <input type="password" id="myPassword" onclick="showPassword()" style="background-color:rgb(251, 251, 251);" value="{{ obj.pw }}" readonly>
                 </li>
                 <li> <b>Email:</b> {{obj.email}} </li></p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
