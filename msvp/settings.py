@@ -95,8 +95,16 @@ WSGI_APPLICATION = 'msvp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'msvp',
+        'USER': 'grhong',
+        'PASSWORD': 'test1',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 
 # Password validation
@@ -150,9 +158,6 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
-
-django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
