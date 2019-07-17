@@ -182,14 +182,18 @@ def verify_pw(request):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
-        results = Passwords.objects.annotate(
-            similarity=Greatest(
-                TrigramSimilarity('web', query),
-                TrigramSimilarity('userid', query))
-        ).filter(
-            Q(user=request.user) & Q(web__trigram_similar=query) | 
-            Q(user=request.user) & Q(userid__trigram_similar=query),
-        similarity__gt=0.3).order_by('-similarity')
+        # results = Passwords.objects.annotate(
+        #     similarity=Greatest(
+        #         TrigramSimilarity('web', query),
+        #         TrigramSimilarity('userid', query))
+        # ).filter(
+        #     Q(user=request.user) & Q(web__trigram_similar=query) | 
+        #     Q(user=request.user) & Q(userid__trigram_similar=query),
+        # similarity__gt=0.3).order_by('-similarity')
+        results = Passwords.objects.filter(
+            Q(user=request.user) & Q(web__icontains=query) | 
+            Q(user=request.user) & Q(userid__icontains=query),
+        )
             
         for obj in results:
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
