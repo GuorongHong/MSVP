@@ -11,3 +11,9 @@ class Passwords(models.Model):
     email = models.CharField(max_length = 200)
     def __str__(self):
         return self.web
+
+class MasterHint(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hint = models.CharField(max_length = 200, null=True)
+    def __str__(self):
+        return self.web

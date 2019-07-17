@@ -1,4 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
+<<<<<<< HEAD
+=======
+from .models import Passwords
+from .forms import PasswordForm, GeneratePasswordForm, SignUpForm
+>>>>>>> custom_signup
 from django.db.models import Q
 from django.template import loader
 from django.shortcuts import render, redirect
@@ -13,8 +18,22 @@ from .forms import PasswordForm, GeneratePasswordForm
 
 from Crypto.Cipher import AES
 
+<<<<<<< HEAD
 from random import randint
 import string
+=======
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+>>>>>>> custom_signup
 
 def index(request):
     if 'cipherKey' not in request.session:
