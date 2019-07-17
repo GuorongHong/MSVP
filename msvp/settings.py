@@ -145,7 +145,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -173,31 +173,31 @@ REST_FRAMEWORK = {
     ]
 }
 
-# TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
+TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 
-# TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
+TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 
-# TWILIO_ACCOUNT_SID = 'AC4957736b266d4bb29d9777e1f7872ef9'
-# TWILIO_AUTH_TOKEN = 'c3695221ed838baebbf6828d30039c37'
-# TWILIO_CALLER_ID = '+19167135716'
+TWILIO_ACCOUNT_SID = 'AC4957736b266d4bb29d9777e1f7872ef9'
+TWILIO_AUTH_TOKEN = 'c3695221ed838baebbf6828d30039c37'
+TWILIO_CALLER_ID = '+19167135716'
 
-TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
+# TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
 
-TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
+# TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'two_factor': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        }
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'two_factor': {
+#             'handlers': ['console'],
+#             'level': 'INFO',
+#         }
+#     }
+# }
