@@ -11,15 +11,18 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(attrs={"placeholder":""}),
         initial="No hint available",
         )
+    
+    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
 
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'hint')
+        fields = ('username', 'email', 'password1', 'password2', 'hint')
 
     def save(self, commit=True):
         user = super(SignUpForm, self).save(commit=False)
         user.username = self.cleaned_data['username']
         user.hint = self.cleaned_data['hint']
+        user.email = self.cleaned_data['email']
 
         if commit:
             user.save()
@@ -50,3 +53,9 @@ class AddHintForm(forms.Form):
 
     def __str__(self):
         return self.new_hint
+
+class ChangeEmailForm(forms.Form):
+    new_email = forms.EmailField(max_length=254, widget=forms.TextInput(attrs={"placeholder":"New email here"}),)
+
+    def __str__(self):
+        return self.new_email

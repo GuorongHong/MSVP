@@ -23,7 +23,8 @@
       <div class="col-4">
         <div class="sidebar">
           <h1>Passwords</h1>
-          <h3 id="userInfo">User: <b>{{ user.username }}</b></h3>
+          <h3 id="userInfo">User: <b>{{ user.username }}</b><br>
+          Email: {{ user.email }}</h3>
           <form method="GET" action="{% url 'search' %}">
               <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
               <button id="searchButton" type="submit"><span class="fa fa-search"></span></button>
@@ -31,6 +32,7 @@
 
           <p><ul><a id="sidebarContent" class="underlineHover" href='add_pw/'>Add New Password</a></ul>
             <ul><a id="sidebarContent" class="underlineHover" href='change_pw/'>Change Master Password</a></ul>
+            <ul><a id="sidebarContent" class="underlineHover" href='../accounts/email/edit'>Edit Email</a></ul>
             <ul><a id="sidebarContent" class="underlineHover" href='../accounts/hint/edit'>Edit Hint</a></ul>
             <ul><a id="sidebarContent" class="underlineHover" href='../account/two_factor/'>Authentication Settings</a></ul>
           <ul><a id="sidebarContent" class="underlineHover" href="{% url 'logout' %}">Logout</a></ul></p>

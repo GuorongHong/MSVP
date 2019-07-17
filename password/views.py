@@ -6,6 +6,8 @@ from django.utils.crypto import get_random_string, pbkdf2, salted_hmac
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models.functions import Greatest
 from django_otp.decorators import otp_required
 
 from .models import Passwords
@@ -180,9 +182,15 @@ def verify_pw(request):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
-        results = Passwords.objects.filter(
-            Q(user=request.user) & Q(web__icontains=query) | 
-            Q(user=request.user) & Q(userid__icontains=query))
+        results = Passwords.objects.annotate(
+            similarity=Greatest(
+                TrigramSimilarity('web', query),
+                TrigramSimilarity('userid', query))
+        ).filter(
+            Q(user=request.user) & Q(web__trigram_similar=query) | 
+            Q(user=request.user) & Q(userid__trigram_similar=query),
+        similarity__gt=0.3).order_by('-similarity')
+            
         for obj in results:
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
             obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
@@ -211,5 +219,3 @@ def change_pw(request):
             return redirect('login')
     else:
         return render(request, 'password/change_pw.html', {})
-
-

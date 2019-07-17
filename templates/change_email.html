@@ -1,0 +1,40 @@
+{% if user.is_authenticated %}
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'password/add_pw.css' %}">
+</head>
+
+<div class="header">
+    <a href="{% url 'home' %}">Much Security Very Password</a>
+    <div class="header-right">
+        <a href="{% url 'index' %}" class="underlineHover">Passwords</a>
+        <a href="{% url 'about' %}" class="underlineHover">About</a>
+    </div>
+</div>
+
+<body>
+    <div class="wrapper">
+        <div id="formContent">
+            <h2>Edit Email</h2>
+                <p><b>Current Email: </b>{{ user.email }}</p>    
+            <form method="POST">
+                {% csrf_token %}
+            <input type="email" name="new_email" placeholder="New email here">
+            <p><input type="submit" value="Save"></p>
+            </form>
+        </div>
+
+        <div id="formFooter">
+            <p><a class="underlineHover" href="../../../password/">Cancel</a></p>
+        </div>
+    </div>
+
+{% endif %}
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>

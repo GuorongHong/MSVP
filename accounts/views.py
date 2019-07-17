@@ -8,7 +8,7 @@ from django.views import generic
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from .models import PasswordHint
-from .forms import SignUpForm, GetHintForm, AddHintForm
+from .forms import SignUpForm, GetHintForm, AddHintForm, ChangeEmailForm
 
 from .forms import SignUpForm, GetHintForm
 from .models import PasswordHint
@@ -20,6 +20,7 @@ def signup(request):
             p = PasswordHint()
             ## set defaults for when no hint inputted
             p.username = request.user.username
+            p.email = request.user.email
             p.hint = "No hint available"
             p.save()
             form.save()
@@ -35,11 +36,13 @@ def login_hint(request):
     def retrieve_hint(request):
         data = PasswordHint.objects.get(username=name_input)
         hint = data.hint
+        email = data.email
         username = data.username
         context = {
             'data': data,
             'hint': hint,
-            'username': username
+            'username': username,
+            'email': email
         }
         return render(request, 'hint.html', context)
 
@@ -94,3 +97,22 @@ def add_hint(request):
     else:
         context = {}
     return render(request, 'add_hint.html', context)
+
+def change_email(request):
+    if 'cipherKey' not in request.session:
+        return redirect('verify_pw')
+
+    if request.method == 'POST':
+        form = ChangeEmailForm(request.POST)
+        if form.is_valid():
+            if request.user.is_authenticated:
+                u = User.objects.get(username = request.user.username)
+                u.email = form.cleaned_data['new_email']
+                u.save()
+                return redirect('index')
+        context = {'form':form}
+    else:
+        form = ChangeEmailForm()
+        context={}
+
+    return render(request, 'change_email.html', context)
