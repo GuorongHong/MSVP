@@ -16,34 +16,44 @@
             <a href="{% url 'about' %}" class="underlineHover">About</a>
         </div>
     </div>
-              
-    <div class="wrapper">
-        <div id="formContent">
-                {% block content %}
-                {% endblock %}
-            <!-- <h2>Login</h2>
-                <p>Enter your credentials.</p>
-            <form action="" method="post">
-                    {% csrf_token %}
-                <input type="hidden" name="csrfmiddlewaretoken" value="omRJ8mklOfoNUiM1GXb4eUfw5ihE3HeePHs7cr7sl3c90YOXoL1fcDPGP8PY1vHS">
-            
-            <table>
-                <input type="hidden" name="login_view-current_step" value="auth" id="id_login_view-current_step">
-                <tbody><tr><th><label for="id_auth-username">Username:</label></th><td><input type="text" name="auth-username" autofocus="" required="" id="id_auth-username"></td></tr>
-                <tr><th><label for="id_auth-password">Password:</label></th><td><input type="password" name="auth-password" required="" id="id_auth-password"></td></tr>
-                </tbody>
-            </table>
 
-                <div style="margin-left: -9999px"><input type="submit" value=""></div>
-                <button type="submit" class="btn btn-primary">Next</button>
-            </form> -->
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+              <div class="sidebar">
+                <h2>Navigation</h2>
+                <p>To sign up for an account instead, click here:
+                    <a id="sidebarContent" class="underlineHover" href="{% url 'signup' %}"><b>Sign up</b></a></p>
+                <p>You may <b>access your passwords from here directly</b> if you do not wish to enable 2-factor authentication
+                    or after you have done so. You may toggle it on or off from here once you have logged in:
+                    <a id="sidebarContent" class="underlineHover" href="{% url 'index' %}"><b>Passwords</b></a></p>
+              </div>
+            </div>
+      
+            <div class="col-8">
+                <div class="wrapper">
+                    <div id="formContent">
+                            {% block content %}
+                            {% endblock %}
+                        <!-- <h2>Login</h2>
+                            <p>Enter your credentials.</p>
+                        <form action="" method="post">
+                                {% csrf_token %}
+                            <input type="hidden" name="csrfmiddlewaretoken" value="omRJ8mklOfoNUiM1GXb4eUfw5ihE3HeePHs7cr7sl3c90YOXoL1fcDPGP8PY1vHS">
+                        
+                        <table>
+                            <input type="hidden" name="login_view-current_step" value="auth" id="id_login_view-current_step">
+                            <tbody><tr><th><label for="id_auth-username">Username:</label></th><td><input type="text" name="auth-username" autofocus="" required="" id="id_auth-username"></td></tr>
+                            <tr><th><label for="id_auth-password">Password:</label></th><td><input type="password" name="auth-password" required="" id="id_auth-password"></td></tr>
+                            </tbody>
+                        </table>
 
-        <div id="formFooter">
-            <p><a class="underlineHover" href="{% url 'signup' %}">Sign up</a></p>
-            <p><a class="underlineHover" href="{% url 'login_hint' %}">Forgot Password?</a></p>
-        </div>
-    </div>
+                            <div style="margin-left: -9999px"><input type="submit" value=""></div>
+                            <button type="submit" class="btn btn-primary">Next</button>
+                        </form> -->
+                    </div>
+                </div>
+            </div>
 
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

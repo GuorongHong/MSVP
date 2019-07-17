@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'accounts.apps.AccountsConfig',
     'password.apps.PasswordConfig',
     'rest_framework.authtoken',
@@ -172,10 +173,31 @@ REST_FRAMEWORK = {
     ]
 }
 
-TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
+# TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 
-TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
+# TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 
-TWILIO_ACCOUNT_SID = 'AC4957736b266d4bb29d9777e1f7872ef9'
-TWILIO_AUTH_TOKEN = 'c3695221ed838baebbf6828d30039c37'
-TWILIO_CALLER_ID = '+19167135716'
+# TWILIO_ACCOUNT_SID = 'AC4957736b266d4bb29d9777e1f7872ef9'
+# TWILIO_AUTH_TOKEN = 'c3695221ed838baebbf6828d30039c37'
+# TWILIO_CALLER_ID = '+19167135716'
+
+TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
+
+TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'two_factor': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
