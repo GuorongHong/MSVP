@@ -1,27 +1,5 @@
 from django import forms 
-<<<<<<< HEAD
 from django.utils.safestring import mark_safe
-=======
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-
-class SignUpForm(UserCreationForm):
-    hint = forms.CharField(label='Password Hint', max_length=200, help_text='(Optional) The hint shown if you forget your password', required=False, widget=forms.TextInput(attrs={"placeholder":"Password hint"}))
-
-    class Meta:
-        model = User
-        fields = ('username', 'password1', 'password2', 'hint')
-
-    def save(self, commit=True):
-        user = super(SignUpForm, self).save(commit=False)
-        user.username = cleaned_data['username']
-        user.hint = cleaned_data['hint']
-
-        if commit:
-            user.save()
-
-        return user
->>>>>>> custom_signup
 
 class PasswordForm(forms.Form):
     web = forms.CharField(label='Website URL', max_length = 200, widget=forms.TextInput(attrs={"placeholder":"Website URL"}))
