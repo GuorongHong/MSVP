@@ -157,6 +157,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+django_heroku.settings(locals())
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
