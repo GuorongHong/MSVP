@@ -37,10 +37,22 @@ class GetHintForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder":"Your username"})
         )
 
+    email = forms.EmailField(
+        max_length=254,
+        help_text='Confirm your email address.',
+        widget=forms.TextInput(attrs={"placeholder":"Your email"})
+    )
+
     def username_present(crsf, username):
         if User.objects.filter(username=username).exists():
             return username
             
+        return False
+
+    def email_confirm(crsf, username, email):
+        if User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists():
+            return True
+        
         return False
 
 class AddHintForm(forms.Form):

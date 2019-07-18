@@ -18,10 +18,11 @@
         <div class="wrapper">
             <div id="formContent">
                 <h2>Username</h2>
-                <p>Input username to retrieve the hint for your password.</p>
+                <p>Input username and confirm email address <br>to retrieve the hint for your password.</p>
                 <form method="POST">
                     {% csrf_token %}
                 <input type="text" name="username" placeholder="Your username">
+                <input type="email" name="email" placeholder="Your email address">
                 <p><input type="submit" value="Submit"></p>
                 </form>
             </div>
