@@ -12,17 +12,16 @@ from django.conf import settings
 
 from .models import PasswordHint
 from .forms import SignUpForm, GetHintForm, AddHintForm, ChangeEmailForm
-from .models import PasswordHint
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             p = PasswordHint()
-            ## set defaults for when no hint inputted
-            p.username = request.user.username
-            p.email = request.user.email
-            p.hint = "No hint available"
+            p.username = form.cleaned_data['username']
+            p.hint = form.cleaned_data['hint']
+            if not p.hint:
+                p.hint = "No hint available"
             p.save()
             form.save()
             return redirect('home')
@@ -81,16 +80,16 @@ def add_hint(request):
         name_input = request.user.username
         ## check if there is any hint tagged to the username adn show it
         ## if not, create default new one and show that instead
-        check = PasswordHint.objects.get_or_create(
-            username=name_input,
-            defaults={
-                'username':name_input,
-                'hint':"No hint available"
-            }
-        )
+        # check = PasswordHint.objects.get_or_create(
+        #     username=name_input,
+        #     defaults={
+        #         'username':name_input,
+        #         'hint':"No hint available"
+        #     }
+        # )
         data = PasswordHint.objects.get(username=name_input)
         if data.hint == "No hint available" or data.hint == '':
-            current_hint = False
+            current_hint = data.hint
         else:
             current_hint = data.hint
 

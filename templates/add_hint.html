@@ -29,6 +29,8 @@
                 <p><b>Current Hint: </b> {{ current_hint }}</p>
             {% endif %}
 
+                <!-- <p>{{ current_hint }}</p> -->
+
             <form method="POST">
                 {% csrf_token %}
             <input type="text" name="new_hint" placeholder="New hint here">

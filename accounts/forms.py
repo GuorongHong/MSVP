@@ -8,8 +8,9 @@ class SignUpForm(UserCreationForm):
         label='(Optional) Password Hint', 
         max_length=200, 
         help_text=mark_safe('The hint shown if you forget your password. <br /> Do not edit if you do not wish to include a hint. <br /> You may add and edit hints after you log in.'), 
-        widget=forms.TextInput(attrs={"placeholder":""}),
-        initial="No hint available",
+        # widget=forms.TextInput(attrs={"placeholder":""}),
+        required=False,
+        # initial="No hint available",
         )
     
     email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
