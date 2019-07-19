@@ -13,7 +13,7 @@ class CustomManager(models.Manager):
 
 class PasswordHint(models.Model):
     username = models.CharField(max_length=200)
-    hint = models.CharField(max_length=200)
+    hint = models.CharField(max_length=200, default = '')
     email = models.EmailField(max_length=200)
 
     objects = CustomManager()

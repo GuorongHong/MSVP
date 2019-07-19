@@ -20,6 +20,7 @@ def signup(request):
             p = PasswordHint()
             p.username = form.cleaned_data['username']
             p.hint = form.cleaned_data['hint']
+            p.email = form.cleaned_data['email']
             if not p.hint:
                 p.hint = "No hint available"
             p.save()
