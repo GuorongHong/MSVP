@@ -9,6 +9,7 @@ from django.contrib.auth import logout
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models.functions import Greatest
 from django_otp.decorators import otp_required
+from django.contrib.auth.decorators import login_required
 
 from .models import Passwords
 from .forms import PasswordForm, GeneratePasswordForm
@@ -18,6 +19,7 @@ from Crypto.Cipher import AES
 from random import randint
 import string
 
+@login_required
 def index(request):
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
@@ -34,6 +36,7 @@ def index(request):
         context = {}
     return HttpResponse(template.render(context, request))
 
+@login_required
 def edit(request, id):
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
@@ -47,7 +50,7 @@ def edit(request, id):
     obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
     return render(request, 'password/edit.html', {'obj': obj})
 
-
+@login_required
 def add_pw(request):
     password = 'Generated password'
     length = 8
@@ -130,7 +133,8 @@ def add_pw(request):
         'password':password, 'length':length,
     }
     return render(request, 'password/add_pw.html', extra_context)
-    
+
+@login_required    
 def del_pw(request, id):
     obj = Passwords.objects.get(id = id)
     if request.method == 'POST':
@@ -167,6 +171,7 @@ def generate_pw(request):
         context = {'password': password, 'length': length, 'form': form}
     return render(request, 'password/generate_pw.html', context)
 
+@login_required
 def verify_pw(request):
     if request.method == 'POST':
         if check_password(request.POST.get("Password"), request.user.password):
@@ -179,6 +184,7 @@ def verify_pw(request):
             return HttpResponse('Incorrect Password')
     return render(request, "password/verify_pw.html", {})
 
+@login_required
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q')
@@ -202,6 +208,7 @@ def search(request):
     else:
         return render(request, 'password/search.html', {})
 
+@login_required
 def change_pw(request):
     if request.method == 'POST' and request.user.is_authenticated:
             if 'cipherKey' not in request.session:
