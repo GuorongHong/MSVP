@@ -20,16 +20,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
 from two_factor.urls import urlpatterns as tf_urls
+from two_factor.views import LoginView
 from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('password/', include('password.urls')),
     path('about/', TemplateView.as_view(template_name='about.html'), name = 'about'),
     path('api/v1/', include('api.urls')),
-    url(r'', include(tf_urls)),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path(r'', include(tf_urls)),
     url(r'', include(tf_twilio_urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
