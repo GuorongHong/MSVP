@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if cancel_url %}
-  <button href="{{ cancel_url }}"
-    class="underlineHover">{% trans "Cancel" %}</button>
+  <a href="{% url 'home' %}"
+    class="underlineHover">{% trans "Cancel" %}</a>
 {% endif %}
 <input type="submit" class="underlineHover" value="Next"></input>
 {% if wizard.steps.prev %}

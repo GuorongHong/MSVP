@@ -68,7 +68,9 @@ class AddHintForm(forms.Form):
         return self.new_hint
 
 class ChangeEmailForm(forms.Form):
-    new_email = forms.EmailField(max_length=254, widget=forms.TextInput(attrs={"placeholder":"New email here"}),)
+    new_email = forms.EmailField(
+        max_length=254, 
+        widget=forms.TextInput(attrs={"placeholder":"New email here"}),)
 
     def __str__(self):
         return self.new_email
