@@ -98,8 +98,9 @@ ul {
     flex-direction: column;
     position: fixed;
     width: 400px;
-    max-height: 400px;
+    max-height: 500px;
     padding: 20px;
+    padding-bottom: 15px;
     margin: 20px;
     border-radius: 10px;
     color: rgb(65, 65, 65);
