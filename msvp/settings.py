@@ -95,14 +95,25 @@ WSGI_APPLICATION = 'msvp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'msvp',
+#         'USER': 'grhong',
+#         'PASSWORD': 'test1',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'msvp',
-        'USER': 'grhong',
+        'USER': 'sarah',
         'PASSWORD': 'test1',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5433',
     }
 }
 

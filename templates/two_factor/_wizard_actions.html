@@ -1,0 +1,13 @@
+{% load i18n %}
+{% if cancel_url %}
+  <button href="{{ cancel_url }}"
+    class="underlineHover">{% trans "Cancel" %}</button>
+{% endif %}
+<input type="submit" class="underlineHover" value="Next"></input>
+{% if wizard.steps.prev %}
+  <button name="wizard_goto_step" type="submit"
+          value="{{ wizard.steps.prev }}"
+          class="underlineHover">{% trans "Back" %}</button>
+{% else %}
+  <button disabled name="" type="button" disabled>{% trans "Back" %}</button>
+{% endif %}

@@ -1,0 +1,21 @@
+{% extends "two_factor/_base_focus.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="wrapper">
+  <div id="formContent">
+    <h2>{% block title %}{% trans "Disable Two-factor Authentication" %}{% endblock %}</h2>
+    <p>{% blocktrans %}You are about to disable two-factor authentication. This
+      weakens your account security, are you sure?{% endblocktrans %}</p>
+    <form method="post">
+      {% csrf_token %}
+      <p>{{ form.as_p }}</p>
+      <button class="btn btn-danger" style="margin-bottom: 15px;"
+              type="submit">{% trans "Disable" %}</button>
+    </form>
+  </div>
+  <div id="formFooter">
+      <p><a class="underlineHover" href="../">Cancel</a></p>
+  </div>
+</div>
+{% endblock %}

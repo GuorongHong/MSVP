@@ -1,0 +1,15 @@
+{{ wizard.management_form }}
+<div id="list">
+    {% for field in wizard.form %}
+    <p>
+      {{ field.label }}<br>
+      {{ field }}
+      {% if field.help_text %}
+        <p><small style="color: grey">{{ field.help_text }}</small></p>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+    {% endfor %}
+</div>
