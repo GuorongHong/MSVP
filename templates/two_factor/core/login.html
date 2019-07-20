@@ -5,7 +5,6 @@
 <div id="formContent">
   <h2>{% block title %}{% trans "Login" %}{% endblock %}</h2>
 
-
   {% if wizard.steps.current == 'auth' %}
     <p></p>
   {% elif wizard.steps.current == 'token' %}
@@ -51,9 +50,5 @@
 
     {% include "two_factor/_wizard_actions.html" %}
   </form>
-</div>
-
-<div id="formFooter">
-    <p><a class="underlineHover" href="{% url 'home' %}">Back to Home</a></p>
 </div>
 {% endblock %}
