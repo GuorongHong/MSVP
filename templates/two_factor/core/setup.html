@@ -10,7 +10,8 @@
         authentication.{% endblocktrans %}</p>
   {% elif wizard.steps.current == 'method' %}
     <p>{% blocktrans %}Please select which authentication method you would
-        like to use.{% endblocktrans %}</p>
+        like to use. <br> (MSVP note: Due to bduget constraints, please only
+        select the <b>token authentication</b> method. Thank you :"){% endblocktrans %}</p>
   {% elif wizard.steps.current == 'generator' %}
     <p>{% blocktrans %}To start using a token generator, please use your
         smartphone to scan the QR code below. For example, use Google
