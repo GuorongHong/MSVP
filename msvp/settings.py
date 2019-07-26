@@ -17,23 +17,20 @@ import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '49yum!2b_n$5ohp(sa!88nlo8548v9ke+m9yl#+0mz3ms4f8-2'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -95,27 +92,27 @@ WSGI_APPLICATION = 'msvp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'msvp',
-#         'USER': 'grhong',
-#         'PASSWORD': 'test1',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'msvp',
-        'USER': 'sarah',
+        'USER': 'grhong',
         'PASSWORD': 'test1',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'msvp',
+#         'USER': 'sarah',
+#         'PASSWORD': 'test1',
+#         'HOST': 'localhost',
+#         'PORT': '5433',
+#     }
+# }
 
 
 # Password validation
@@ -188,9 +185,9 @@ TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 
 TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 
-TWILIO_ACCOUNT_SID = 'AC4957736b266d4bb29d9777e1f7872ef9'
-TWILIO_AUTH_TOKEN = 'c3695221ed838baebbf6828d30039c37'
-TWILIO_CALLER_ID = '+19167135716'
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_CALLER_ID = os.getenv('TWILIO_CALLER_ID')
 
 # TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
 
@@ -218,4 +215,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'team.msvp@gmail.com'
-EMAIL_HOST_PASSWORD = 'orbital2019'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
