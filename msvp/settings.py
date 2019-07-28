@@ -95,25 +95,13 @@ WSGI_APPLICATION = 'msvp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'msvp',
-        'USER': 'grhong',
-        'PASSWORD': 'test1',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'msvp',
-#         'USER': 'sarah',
-#         'PASSWORD': 'test1',
-#         'HOST': 'localhost',
-#         'PORT': '5433',
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -188,27 +176,6 @@ TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.twilio.gateway.Twilio'
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 TWILIO_CALLER_ID = os.getenv('TWILIO_CALLER_ID')
-
-# TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
-
-# TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'two_factor': {
-#             'handlers': ['console'],
-#             'level': 'INFO',
-#         }
-#     }
-# }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
