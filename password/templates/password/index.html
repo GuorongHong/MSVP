@@ -42,15 +42,15 @@
       <div class="col-8">
         {% if data %}
         <script>
-            function myFunction() {
-              var x = document.getElementById("myPW");
+            function myFunction(pwid) {
+              var x = document.getElementById(pwid);
               if (x.style.visibility === "hidden") {
                 x.style.visibility = "visible";
               } else {
                 x.style.visibility = "hidden";
               }
             }
-            </script>
+        </script>
             <ul>
             {% for obj in data %}
             <div class="wrapper">
@@ -59,12 +59,12 @@
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>Email:</b> {{obj.email}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password:</b><div id='myPW' visibility='hidden'>{{obj.pw}}</div></li>
-                <script>document.getElementById('myPW').style.visibility = 'hidden'</script>
+                <li> <b>Password:</b><div id={{obj.id}} visibility='hidden'>{{obj.pw}}</div></li>
+                <script>document.getElementById({{obj.id}}).style.visibility = 'hidden'</script>
                 </p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
                   <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a>
-                  <button id='edit' onclick="myFunction()">Show</button>
+                  <button id='edit' onclick="myFunction({{obj.id}})">Show</button>
                 </p>
               </div>
             </div>
