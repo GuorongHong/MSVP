@@ -41,31 +41,31 @@
 
       <div class="col-8">
         {% if data %}
+        <script>
+            function myFunction() {
+              var x = document.getElementById("myPW");
+              if (x.style.visibility === "hidden") {
+                x.style.visibility = "visible";
+              } else {
+                x.style.visibility = "hidden";
+              }
+            }
+            </script>
             <ul>
             {% for obj in data %}
-
-            <!-- <script>
-              function showPassword() {
-                if (document.getElementById("myPassword").style.color == "rgb(251, 251, 251)") {
-                  document.getElementById("myPassword").style.color = "black";
-                } else {
-                  document.getElementById("myPassword").style.color = "rgb(251, 251, 251)";
-                }
-              }
-            </script> -->
-
             <div class="wrapper">
               <div id="formContent">
                 <p>
                 <li> <b>Website URL:</b> {{obj.web}} </li>
                 <li> <b>Email:</b> {{obj.email}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
-                <li> <b>Password: </b>  Highlight below to view password!
-                  <p id="myPassword" style="color:rgb(251, 251, 251);">{{ obj.pw }}</p>
-                </li>
+                <li> <b>Password:</b><div id='myPW' visibility='hidden'>{{obj.pw}}</div></li>
+                <script>document.getElementById('myPW').style.visibility = 'hidden'</script>
                 </p>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
-                  <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a></p>
+                  <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a>
+                  <button id='edit' onclick="myFunction()">Show</button>
+                </p>
               </div>
             </div>
             {% endfor %}
