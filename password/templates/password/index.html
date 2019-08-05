@@ -50,7 +50,21 @@
                 x.style.visibility = "hidden";
               }
             }
+            var arr = [];
+            function revealAll(array) {
+              arrLength = array.length;
+              var vis = x => document.getElementById(x);
+              if (vis(array[0]).style.visibility === 'hidden') {
+                var a = 'visible';
+              } else {
+                var a = 'hidden';
+              }
+              for (var i = 0; i < arrLength; i++) {
+                vis(array[i]).style.visibility = a;
+              }
+            }
         </script>
+        <button id='edit' onclick="revealAll(arr)">Show/Hide All</button>
             <ul>
             {% for obj in data %}
             <div class="wrapper">
@@ -60,10 +74,13 @@
                 <li> <b>Email:</b> {{obj.email}} </li>
                 <li> <b>UserID:</b> {{obj.userid}} </li>
                 <li> <b>Password:</b><div id={{obj.id}} visibility='hidden'>{{obj.pw}}</div></li>
-                <script>document.getElementById({{obj.id}}).style.visibility = 'hidden'</script>
+                <script>
+                document.getElementById({{obj.id}}).style.visibility = 'hidden'
+                arr.push({{obj.id}})
+                </script>
                 <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
                   <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a>
-                  <button id='edit' onclick="myFunction({{obj.id}})">Show</button>
+                  <button id='edit' onclick="myFunction({{obj.id}})">Show/Hide</button>
                 </p>
               </div>
             </div>
