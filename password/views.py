@@ -202,6 +202,8 @@ def change_pw(request):
     if request.method == 'POST' and request.user.is_authenticated:
             if 'cipherKey' not in request.session:
                 return redirect('verify_pw')
+            if not request.POST.get("new_pw"):
+                return redirect('change_pw')
             data = Passwords.objects.filter(user = request.user)
             u = User.objects.get(username = request.user.username)
             u.set_password(request.POST.get('new_pw'))
