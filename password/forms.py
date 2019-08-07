@@ -13,7 +13,7 @@ class GeneratePasswordForm(forms.Form):
     use_lower = forms.BooleanField(label="Lowercase", initial = True, required = False)
     use_digits = forms.BooleanField(label="Digits", initial = True, required = False)
     use_special = forms.BooleanField(label="Special characters", initial = True, required = False)
-    avoid_similar = forms.BooleanField(label="Avoid similar letters and numbers (Eg. 0 and O)", initial = True, required = False)
+    avoid_similar = forms.BooleanField(label="Avoid letters and numbers (Eg. 0 and O)", initial = True, required = False)
     personal_details = forms.CharField(
         label="(Optional) Personal Details", 
         help_text=mark_safe('Words or characters to be included in generated password. Separate each word with a comma and no spaces (eg. \"hello,bye\").'), 

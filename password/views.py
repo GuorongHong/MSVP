@@ -41,22 +41,87 @@ def index(request):
 
 @login_required
 def edit(request, id):
+    password = 'Generated password'
+    length = 8
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
+    if request.method == 'POST' and 'GenerateSubmit' in request.POST:
+        generateform = GeneratePasswordForm(request.POST or None, prefix='generate')
+        if generateform.is_valid():
+            data = generateform.cleaned_data
+            length = data['length']
+            charset = ''
+            personal_str = data['personal_details']
+            # check if personal details were included
+            if personal_str != '':
+                # from the string, get list with each word as an item
+                personal_lst = str(personal_str).split(",")
+                # length of characters of personal words inputted
+                personal_length = len(personal_str)
+                for char in personal_str:
+                    if char == ",":
+                        personal_length -= 1
+                # check if number of characters in personal details exceeds length set
+                if personal_length > length:
+                    password = "Length of personal details exceed password length!"
+                else:
+                    if data['use_lower']:
+                        charset += string.ascii_lowercase
+                    if data['use_upper']:
+                        charset += string.ascii_uppercase
+                    if data['use_digits']:
+                        charset += string.digits
+                    if data['use_special']:
+                        charset += string.punctuation
+                    if data['avoid_similar']:
+                        charset = [c for c in charset if c not in similar_chars]
+                    # randomly generate password without details, then afterwards 
+                    # randomly insert the items in personal_arr into the password generated
+                    length -= personal_length
+                    before_password = get_random_string(length, charset)
+
+                    for item in personal_lst:
+                        pos = randint(0, len(before_password) - 1)  # pick random position to insert item
+                        before_password = "".join((before_password[:pos], item, before_password[pos:])) # insert item at pos                    
+                    
+                    password = before_password
+            else:
+                if data['use_lower']:
+                    charset += string.ascii_lowercase
+                if data['use_upper']:
+                    charset += string.ascii_uppercase
+                if data['use_digits']:
+                    charset += string.digits
+                if data['use_special']:
+                    charset += string.punctuation
+                if data['avoid_similar']:
+                    charset = [c for c in charset if c not in similar_chars]
+                password = get_random_string(length, charset)
+
     obj = Passwords.objects.get(id = id)
-    if request.method == 'POST':
-        form = EditPasswordForm(request.POST)
+    if request.method == 'POST' and 'EditSubmit' in request.POST:
+        editform = EditPasswordForm(request.POST, prefix='edit')
         if form.is_valid():
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
             obj.pw = encryption_suite.encrypt(form.cleaned_data['npw'].encode('utf-8')).hex()
             obj.save()
             return redirect('/password/')
         else:
-            return render(request, 'password/edit.html', {'obj': obj, 'form' : form})
+            return render(request, 'password/edit.html', {'obj': obj, 'edit_form' : editform})
     encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
     obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
-    form = EditPasswordForm()
-    return render(request, 'password/edit.html', {'obj': obj, 'form' : form})
+    
+    editform = EditPasswordForm(prefix='edit')
+    generateform = GeneratePasswordForm(prefix='add')
+
+    extra_context = {
+        'edit_form':EditPasswordForm(prefix='edit'),
+        'generate_form':GeneratePasswordForm(prefix='generate'),
+        'password':password, 
+        'length':length,
+        'obj': obj,
+    }
+    return render(request, 'password/edit.html', extra_context)
 
 @login_required
 def add_pw(request):
