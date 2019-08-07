@@ -63,6 +63,9 @@ ul {
     overflow: hidden;
     background-color: #f1f1f1;
     padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 }
 
 .header a {
@@ -104,6 +107,7 @@ ul {
     margin: 20px;
     border-radius: 10px;
     color: rgb(65, 65, 65);
+    top: 80px;
 }
 
 #sidebarContent {
