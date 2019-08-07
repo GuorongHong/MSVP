@@ -30,3 +30,6 @@ class GeneratePasswordForm(forms.Form):
         personal_details = self.cleaned_data['personal_details']
         if upper == lower == digits == special == avoid_similar == False:
              raise forms.ValidationError("Please select at least one.")
+
+class EditPasswordForm(forms.Form):
+    npw = forms.CharField(label = 'New Password', max_length = 200)

@@ -10,9 +10,12 @@ from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models.functions import Greatest
 from django_otp.decorators import otp_required
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 
 from .models import Passwords
-from .forms import PasswordForm, GeneratePasswordForm
+from .forms import PasswordForm, GeneratePasswordForm, EditPasswordForm
 
 from Crypto.Cipher import AES
 
@@ -41,14 +44,19 @@ def edit(request, id):
     if 'cipherKey' not in request.session:
         return redirect('verify_pw')
     obj = Passwords.objects.get(id = id)
-    if request.method == 'POST' and request.POST.get('npw'):
-        encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
-        obj.pw = encryption_suite.encrypt(request.POST.get('npw').encode('utf-8')).hex()
-        obj.save()
-        return redirect('/password/')
+    if request.method == 'POST':
+        form = EditPasswordForm(request.POST)
+        if form.is_valid():
+            encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
+            obj.pw = encryption_suite.encrypt(form.cleaned_data['npw'].encode('utf-8')).hex()
+            obj.save()
+            return redirect('/password/')
+        else:
+            return render(request, 'password/edit.html', {'obj': obj, 'form' : form})
     encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
     obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
-    return render(request, 'password/edit.html', {'obj': obj})
+    form = EditPasswordForm()
+    return render(request, 'password/edit.html', {'obj': obj, 'form' : form})
 
 @login_required
 def add_pw(request):
@@ -181,7 +189,7 @@ def verify_pw(request):
             request.session['cipherKey'] = key[16:].hex()
             return redirect('/password/')
         else:
-            return HttpResponse('Incorrect Password')
+            messages.error(request, 'Incorrect Password')
     return render(request, "password/verify_pw.html", {})
 
 @login_required
@@ -202,20 +210,26 @@ def change_pw(request):
     if request.method == 'POST' and request.user.is_authenticated:
             if 'cipherKey' not in request.session:
                 return redirect('verify_pw')
-            data = Passwords.objects.filter(user = request.user)
-            u = User.objects.get(username = request.user.username)
-            u.set_password(request.POST.get('new_pw'))
-            u.save()
-            _, _, salt, _ = u.password.split('$')
-            key = pbkdf2(request.POST.get("new_pw"), salt, 50000, 48)
-            key,iv = key[16:], key[0:16]
-            for obj in data:
-                encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
-                obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
-                new_encryption_suite = AES.new(key, AES.MODE_CFB, iv)
-                obj.pw = new_encryption_suite.encrypt(obj.pw.encode('utf-8')).hex()
-                obj.save()
-            logout(request)
-            return redirect('login')
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)
+                data = Passwords.objects.filter(user = request.user)
+                _, _, salt, _ = user.password.split('$')
+                pw = form.cleaned_data['new_password1']
+                key = pbkdf2(pw, salt, 50000, 48)
+                key,iv = key[16:], key[0:16]
+                for obj in data:
+                    encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
+                    obj.pw = encryption_suite.decrypt(bytes.fromhex(obj.pw)).decode('utf-8')
+                    new_encryption_suite = AES.new(key, AES.MODE_CFB, iv)
+                    obj.pw = new_encryption_suite.encrypt(obj.pw.encode('utf-8')).hex()
+                    obj.save()
+                logout(request)
+                return redirect('login')
+            else:
+                return render(request, 'password/change_pw.html', {'password_change_form' : form})
+
     else:
-        return render(request, 'password/change_pw.html', {})
+        form = PasswordChangeForm(request.user)
+        return render(request, 'password/change_pw.html', {'password_change_form' : form})

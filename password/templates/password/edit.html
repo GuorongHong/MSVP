@@ -27,7 +27,7 @@
 
             <form method="POST">
                 {% csrf_token %}
-                <input type="text" name="npw" placeholder="New password here">
+                {{form}}
                 <input type="submit" value="Submit">
             </form>
         </div>

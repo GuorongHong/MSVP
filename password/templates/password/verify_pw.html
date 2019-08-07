@@ -16,6 +16,13 @@
 <div class="wrapper">
     <div id="formContent">
     <form method="POST">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <ul{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</ul>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% csrf_token %}
         <h2 for="verify_pw">Password</h2>
         <input type="password" 

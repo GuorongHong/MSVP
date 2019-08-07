@@ -24,7 +24,7 @@
             Do not forget this password!</p>
             <form method="POST">
                     {% csrf_token %}
-                <input type="password" name="new_pw" placeholder="New password here">
+                    {{password_change_form}}
                 <p><input type="submit" value="Save"></p>
             </form>
         </div>
