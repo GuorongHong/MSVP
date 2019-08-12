@@ -26,7 +26,7 @@
           <h3 id="userInfo">User: <b>{{ user.username }}</b><br>
           Email: {{ user.email }}</h3>
           <form method="GET" action="{% url 'search' %}">
-              <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" />
+              <input type=text name="q" value="{{request.GET.q}}" placeholder="Search" style="width:83%;"/>
               <button id="searchButton" type="submit"><span class="fa fa-search"></span></button>
           </form>
 
