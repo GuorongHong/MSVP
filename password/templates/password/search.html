@@ -36,25 +36,58 @@
                 </div>
             </div>
 
-            <div class="col-8">
+            <div class="col-8" style="top: 130px;">
                 {% if results %}
-                <ul>
-                {% for obj in results %}
-                <div class="wrapper">
+                <script>
+                    function myFunction(pwid) {
+                      var x = document.getElementById(pwid);
+                      if (x.style.visibility === "hidden") {
+                        x.style.visibility = "visible";
+                      } else {
+                        x.style.visibility = "hidden";
+                      }
+                    }
+                    var arr = [];
+                    function revealAll(array) {
+                      arrLength = array.length;
+                      var vis = x => document.getElementById(x);
+                      if (vis(array[0]).style.visibility === 'hidden') {
+                        var a = 'visible';
+                      } else {
+                        var a = 'hidden';
+                      }
+                      for (var i = 0; i < arrLength; i++) {
+                        vis(array[i]).style.visibility = a;
+                      }
+                    }
+                </script>
+                    <button id='edit' onclick="revealAll(arr)" 
+                    style="margin-left: 25%; 
+                    width: 200px;
+                    position: fixed;
+                    top: 90px;
+                    z-index: 1;">Show/Hide All Passwords</button>
+                  <ul>
+                  {% for obj in results %}
+                  <div class="wrapper">
                     <div id="formContent">
-                        <p>
-                        <!-- <li> <b>Website:</b> {{obj.webname}} </li> -->
-                        <li> <b>Website URL:</b> {{obj.web}} </li>
-                        <li> <b>Email:</b> {{obj.email}} </li>
-                        <li> <b>UserID:</b> {{obj.userid}} </li>
-                        <li> <b>Password: </b>  Highlight below to view password!
-                            <p id="myPassword" style="color:rgb(251, 251, 251);">{{ obj.pw }}</p> </li></p>
-                        <p><a id="edit" style="text-decoration: none" href='../{{obj.id}}/edit/'>Edit</span>
-                        <a id="edit" style="text-decoration: none" href='../{{obj.id}}/delete/'>Delete</a></p>
+                      <p>
+                      <li> <b>Website URL:</b> {{obj.web}} </li>
+                      <li> <b>Email:</b> {{obj.email}} </li>
+                      <li> <b>UserID:</b> {{obj.userid}} </li>
+                      <li> <b>Password: </b><span id={{obj.id}} visibility='hidden'>{{obj.pw}}</span></li>
+                      <script>
+                      document.getElementById({{obj.id}}).style.visibility = 'hidden'
+                      arr.push({{obj.id}})
+                      </script>
+                      <p><a id="edit" style="text-decoration: none" href='{{obj.id}}/edit/'>Edit</span>
+                        <a id="edit" style="text-decoration: none" href='{{obj.id}}/delete/'>Delete</a>
+                        <button id='edit' onclick="myFunction({{obj.id}})" style="width: 100px; margin-left: 6px;">Show/Hide</button>
+                      </p>
                     </div>
-                </div>
-                {% endfor %}
-                </ul>
+                  </div>
+                  {% endfor %}
+                  </ul>
                 {% else %}
                 <div class="vertical-center">
                     <p>No password information match the search.</p>
