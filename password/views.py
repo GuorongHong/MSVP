@@ -101,7 +101,7 @@ def edit(request, id):
     obj = Passwords.objects.get(id = id)
     if request.method == 'POST' and 'EditSubmit' in request.POST:
         editform = EditPasswordForm(request.POST, prefix='edit')
-        if form.is_valid():
+        if editform.is_valid():
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
             obj.pw = encryption_suite.encrypt(form.cleaned_data['npw'].encode('utf-8')).hex()
             obj.save()
