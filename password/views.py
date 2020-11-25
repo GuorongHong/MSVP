@@ -103,7 +103,7 @@ def edit(request, id):
         editform = EditPasswordForm(request.POST, prefix='edit')
         if editform.is_valid():
             encryption_suite = AES.new(bytes.fromhex(request.session.get('cipherKey')), AES.MODE_CFB, bytes.fromhex(request.session.get('iv')))
-            obj.pw = encryption_suite.encrypt(form.cleaned_data['npw'].encode('utf-8')).hex()
+            obj.pw = encryption_suite.encrypt(editform.cleaned_data['npw'].encode('utf-8')).hex()
             obj.save()
             return redirect('/password/')
         else:
